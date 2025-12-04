@@ -1,17 +1,24 @@
+#  output dir
+OUTPUT_DIR = output
 # output file name
-TARGET = out
-
+TARGET = $(OUTPUT_DIR)/out
 # compiler
 CC = gcc
 
 # compiler flags
-CFLAGS = -Wall -Wextra -O2
+CFLAGS = -Wall -Wextra -O2 -I$(INC_DIRS)
+
+SRC_DIRS = src 
+SRC_DIRS += lib/src
 
 # source file
-SRC = main.c
+SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
+
+# include directory
+INC_DIRS = ./inc
 
 build:
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+	$(CC) $(CFLAGS) $(SRC_FILES) -o $(TARGET)
 
 run: build
 	./$(TARGET)
