@@ -2,5 +2,6 @@
 
 int main(void)
 {
-    printf("[INFO] Done");
+    printf("[INFO] Start the program\n");
+    printf("[INFO] Done\n");
 }
