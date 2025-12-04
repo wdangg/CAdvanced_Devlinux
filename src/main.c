@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <inc.h>
 
 int main(void)
 {
