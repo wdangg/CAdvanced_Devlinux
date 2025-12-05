@@ -16,3 +16,8 @@ eBookAcType getUserChoice(void)
     /* printf("userChoice = %d\n", userChoice); */
     return userChoice;
 }
+
+void addBook(sBookDataType *pBook)
+{
+    sBookDataType tempBook = *pBook;
+}

@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#define TITLE_SIZE 50
+#define AUTHOR_SIZE 50
+#define BOOK_SIZE 4
 
 typedef enum
 {
@@ -12,9 +15,29 @@ typedef enum
     AC_INVALID
 } eBookAcType;
 
+typedef enum
+{
+    BOOK_STATUS_AVAILABLE,
+    BOOK_STATUS_NOTAVAILABLE
+} eBookStatusType;
+
+typedef struct Book
+{
+    /* data */
+    uint32_t id;
+    uint8_t title[TITLE_SIZE];
+    uint8_t author[AUTHOR_SIZE];
+    eBookStatusType status;
+} sBookDataType;
+
 /**
  * @brief  get user choice from keyboard
  */
 eBookAcType getUserChoice(void);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void addBook(sBookDataType *pBook);
 
 #endif /* _BOOK_H_ */
