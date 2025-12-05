@@ -7,7 +7,7 @@ CC = gcc
 
 
 SRC_DIRS = ./src 
-SRC_DIRS += ./lib/src
+SRC_DIRS += ./lib
 SRC_DIRS += ./app
 
 # source file
@@ -16,6 +16,7 @@ SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 # include directory
 INC_DIRS = ./inc
 INC_DIRS += ./app
+INC_DIRS += ./lib
 
 # compiler flags
 CFLAGS = -Wall -Wextra -O2 $(foreach dir,$(INC_DIRS),-I$(dir))
