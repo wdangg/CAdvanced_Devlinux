@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include "Book.h"
 
 /**
  * @brief  the main func to management the library

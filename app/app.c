@@ -3,27 +3,39 @@
 void printAppInfo(void)
 {
     printf("-----------------------------------\n");
-    printf("1. Add a book into library\n");
-    printf("0. Exit\n");
+    printf("%d. Exit\n", AC_EXIT_APP);
+    printf("%d. Add a book into library\n", AC_ADD_BOOK);
+    printf("%d. Delete a book from library\n", AC_DEL_BOOK);
     printf("-----------------------------------\n");
-    printf("Please chose the action you want:\n");
+    printf("Please choose the action you want:\n");
 }
 
 void libManagement(void)
 {
-    uint8_t inputUser;
-    printf("Your choice: ");
-    scanf("%d", &inputUser);
+    eBookAcType inputUser = 0;
 
-    if (0 == inputUser)
-    {
-        printf("[00000000000000000]");
-    }
-    else
-    {
-        printf("[%d]\n", inputUser);
-    }
+    printAppInfo();
+    inputUser = (eBookAcType)getUserChoice();
 
-    printf("[INFO] Exit app");
+    do
+    {
+        /* code */
+        if (AC_ADD_BOOK == inputUser)
+        {
+            printf("[ACTION] add a book into lib\n");
+        }
+        else if (AC_DEL_BOOK == inputUser)
+        {
+            printf("[ACTION] delete a book into lib\n");
+        }
+        else if (AC_INVALID == inputUser)
+        {
+            printf("[INFO] There is no action you want in list, please chosse angain\n");
+        }
+        /* update input user choice from keyboard */
+        inputUser = (eBookAcType)getUserChoice();
+    } while (AC_EXIT_APP != inputUser);
+
+    printf("[INFO] Exit app\n");
     /* printf("[INFO] App layer\n"); */
 } /* libManagement func */
