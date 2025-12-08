@@ -1,6 +1,8 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+#include "Book.h"
+
 /**
  * @brief  Deletes a book from the list.
  *
@@ -13,5 +15,6 @@
  *
  * @return BookRetCode_t  Status code of the delete operation.
  */
+sBookDataType getBookInput(void);
 
 #endif /* _UTILS_H_ */
