@@ -29,8 +29,6 @@ SRC_DIRS += $(PROJECT_DIR)/Utils
 
 # source file
 SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-SRC_FILES_NAME = $(foreach src_file, $(SRC_FILES), $(notdir $(src_file)))
-SRC_FILES_BASENAME = $(foreach file, $(SRC_FILES_NAME), $(basename $(file)))
 
 # include directory
 INC_DIRS = $(PROJECT_DIR)/inc
@@ -39,7 +37,7 @@ INC_DIRS += $(PROJECT_DIR)/lib
 INC_DIRS += $(PROJECT_DIR)/Utils
 
 # compiler flags
-CFLAGS = -Wall -Wextra -O2 $(foreach dir,$(INC_DIRS),-I$(dir)) -Wl,-Map=app.map
+CFLAGS = -Wall -Wextra -O2 $(foreach dir,$(INC_DIRS),-I$(dir)) -Wl,-Map=$(TARGET).map
 
 print-%:
 	@echo "$* = $($*)"
@@ -87,7 +85,7 @@ build: preprocessor compiler assembler linker
 run:
 	@./$(LINK_OUT_DIR)/$(TARGET).exe
 
-all: build run
+all: clear build run
 
 clear:
 	@rm -rf $(OUTPUT_DIR)
