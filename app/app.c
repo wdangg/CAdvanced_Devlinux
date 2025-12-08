@@ -1,5 +1,7 @@
 #include "app.h"
 
+sBookDataType *pLibrary = NULL;
+
 void printAppInfo(void)
 {
     printf("-----------------------------------\n");
@@ -13,16 +15,19 @@ void printAppInfo(void)
 void libManagement(void)
 {
     eBookAcType inputUser = 0;
-
-    printAppInfo();
-    inputUser = (eBookAcType)getUserChoice();
+    sBookDataType tempBook;
 
     do
     {
+        printAppInfo();
+        inputUser = getUserChoice();
         /* code */
         if (AC_ADD_BOOK == inputUser)
         {
             printf("[ACTION] add a book into lib\n");
+            tempBook = getBookInput();
+            addBook(&pLibrary, tempBook);
+            printfBookInfo(pLibrary);
         }
         else if (AC_DEL_BOOK == inputUser)
         {
@@ -30,12 +35,10 @@ void libManagement(void)
         }
         else if (AC_INVALID == inputUser)
         {
-            printf("[INFO] There is no action you want in list, please chosse angain\n");
+            printf("[INFO] There is no action you want in list, please chosse again: \n");
         }
-        /* update input user choice from keyboard */
-        inputUser = (eBookAcType)getUserChoice();
+        /* code */
     } while (AC_EXIT_APP != inputUser);
 
-    printf("[INFO] Exit app\n");
     /* printf("[INFO] App layer\n"); */
 } /* libManagement func */

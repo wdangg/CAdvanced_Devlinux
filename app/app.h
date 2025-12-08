@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "Book.h"
+#include "Utils.h"
 
 /**
  * @brief  the main func to management the library
