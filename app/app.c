@@ -43,7 +43,7 @@ void libManagement(void)
     sBookDataType tempBook;
     eBookSelAccType eBookSelAcc;
 
-/*     sBookDataType sample_1 = {
+     sBookDataType sample_1 = {
         .id = 1,
         .title = "De Men Phieu Luu Ky",
         .author = "To Hoai",
@@ -89,7 +89,7 @@ void libManagement(void)
     sample_4.pNextBook = &sample_5;
     sample_5.pNextBook = NULL;
 
-    pLibrary = &sample_1; */
+    pLibrary = &sample_1; 
 
     do
     {
@@ -110,6 +110,11 @@ void libManagement(void)
             {
                 printfBookInfo(pLibrary);
                 delBook(&pLibrary);
+            }
+            else if (BOOK_MODIFY_INFO == eBookSelAcc)
+            {
+                printfBookInfo(pLibrary);
+                modifyBook(&pLibrary);
             }
         }
         else if (LIB_USER_MANA == inputUser)

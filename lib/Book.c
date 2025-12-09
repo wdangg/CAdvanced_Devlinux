@@ -151,6 +151,10 @@ void delBook(sBookDataType **pBook)
                 free(tempBook);
             }
         }
+        else
+        {
+            printf("[ERROR] Invalid id\n");
+        }
     }
 }
 
@@ -175,6 +179,87 @@ bool isIdInList(sBookDataType *pBook, const uint32_t id)
         printf("[ERROR] isIdInList\n");
     }
     return bRet;
+}
+
+void editBookInfo(sBookDataType *pBook)
+{
+    uint8_t buff[0xFF];
+
+    printf("=== EDIT BOOK INFO ===\n");
+    printf("Current title : %s\n", pBook->title);
+    printf("Current author: %s\n", pBook->author);
+
+    /* -------- Edit Title -------- */
+    printf("Enter new title (Enter to skip): ");
+    fgets((char*)buff, sizeof(buff), stdin);
+
+    buff[strcspn((char*)buff, "\n")] = 0;
+
+    bool skipTitle = false;
+
+    if (strlen((char*)buff) == 0)
+    {
+        skipTitle = true;
+    }
+    else
+    {
+        strcpy((char*)pBook->title, (char*)buff);
+    }
+
+    /* -------- Edit Author -------- */
+    printf("Enter new author (Enter to skip):");
+
+    fgets((char*)buff, sizeof(buff), stdin);
+    buff[strcspn((char*)buff, "\n")] = 0;
+
+    if (strlen((char*)buff) == 0)
+    {
+        if (skipTitle)
+        {
+            printf("No changes were made.\n");
+            return;
+        }
+        printf("Only title was updated.\n");
+    }
+    else
+    {
+        strcpy((char*)pBook->author, (char*)buff);
+        printf("Both title and author updated.\n");
+    }
+}
+
+void modifyBook(sBookDataType **pBook)
+{
+    sBookDataType *tempBook;
+    uint32_t id;
+
+
+    if (*pBook == NULL)
+    {
+        printf("[ERROR] There is no book, cannot modify\n");
+    }
+    else
+    {
+        printf("[BOOK] Enter the book id you wanna modify:\n");
+        id = getIdInput();
+        tempBook = *pBook;
+        if (true == isIdInList(tempBook, id))
+        {
+            /* printf("found book id, can modify\n"); */
+            if (id != (tempBook->id))
+            {
+                while (id != tempBook->id)
+                {
+                    tempBook = tempBook->pNextBook;
+                }
+            }
+            editBookInfo(tempBook);
+        }
+        else
+        {
+            printf("[ERROR] Invalid id\n");
+        }
+    }
 }
 
 void printBookSelAcc()

@@ -17,6 +17,7 @@ typedef enum eBookSelAcc
 {
     BOOK_ADD,
     BOOK_DEL,
+    BOOK_MODIFY_INFO,
     BOOK_INVALID_SEL,
 } eBookSelAccType;
 
@@ -29,6 +30,7 @@ typedef struct sBookSelAcc
 static const sBookSelAccType sBookSellAcc[] = {
     {BOOK_ADD,          "Add a book"},
     {BOOK_DEL,          "Delete a book"},
+    {BOOK_MODIFY_INFO,  "Modify book infomation"},
 };
 
 typedef enum
@@ -71,8 +73,17 @@ void addBook(sBookDataType **pBook, sBookDataType sampleBook);
 /**
  * @brief  get user choice from keyboard
  */
-
 void delBook(sBookDataType **pBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void modifyBook(sBookDataType **pBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void editBookInfo(sBookDataType *pBook);
 
 /**
  * @brief  get user choice from keyboard
