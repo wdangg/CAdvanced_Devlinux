@@ -9,61 +9,33 @@ void clearStdinBuff(void)
     }
 }
 
-eBookAcType getUserChoice(void)
-{
-    eBookAcType userChoice = 0;
-    int32_t tempChoice = 0;
-
-    tempChoice = getchar();
-    tempChoice = CHAR_TO_NUM(tempChoice);
-    /* printf("tempChoice = %d\n", tempChoice); */
-
-    getchar(); /* clear stdin, there is a newline character still here */
-
-    if ((INVALID_CHOICE == tempChoice) || ((int32_t)AC_INVALID < tempChoice))
-    {
-        userChoice = AC_INVALID;
-    }
-    else
-    {
-        userChoice = (eBookAcType)tempChoice;
-    }
-
-    /* printf("userChoice = %d\n", userChoice);  */
-    return userChoice;
-}
-
 void printfBookInfo(sBookDataType *pBook)
 {
-    sBookDataType *tempBook;
+    sBookDataType *tempBook = pBook;
 
-    tempBook = pBook;
+    if (tempBook == NULL)
+    {
+        printf("There is no book in library.\n");
+        return;
+    }
 
-    if (NULL != tempBook)
+    printf("====================================================================================\n");
+    printf("| %-2s | %-25s | %-25s | %-10s |\n",
+           "ID", "TITLE", "AUTHOR", "STATUS");
+    printf("------------------------------------------------------------------------------------\n");
+
+    while (tempBook != NULL)
     {
-        while (NULL != tempBook)
-        {
-            /* code */
-            printf("====================BOOK_INFO===================\n");
-            printf("ID = %d\n", tempBook->id);
-            printf("Title: %s\n", tempBook->title);
-            printf("Author: %s\n", tempBook->author);
-            if (BOOK_STATUS_AVAILABLE == tempBook->status)
-            {
-                printf("Status: Available\n");
-            }
-            else
-            {
-                printf("Status: Borrowed\n");
-            }
-            printf("================================================\n");
-            tempBook = tempBook->pNextBook;
-        }
+        printf("| %-2d | %-25s | %-25s | %-10s |\n",
+               tempBook->id,
+               tempBook->title,
+               tempBook->author,
+               (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
+
+        tempBook = tempBook->pNextBook;
     }
-    else
-    {
-        printf("There is no book in library\n");
-    }
+
+    printf("====================================================================================\n");
 }
 
 void formatBook(sBookDataType *pBook)
@@ -119,5 +91,122 @@ void addBook(sBookDataType **pBook, sBookDataType sampleBook)
 
     tempBook->status = BOOK_STATUS_AVAILABLE;
     tempBook->pNextBook = NULL;
-    // printfBookInfo(tempBook);
+    /* printfBookInfo(tempBook); */
+}
+
+uint32_t getIdInput(void)
+{
+    uint32_t retVal = 0;
+    uint8_t buff[0xFF];
+
+    if (fgets((char*)buff, sizeof(buff), stdin) != NULL)
+    {
+        retVal = (uint32_t)strtoul((char*)buff, NULL, 10);
+    }
+
+    return retVal;
+}
+
+
+void delBook(sBookDataType **pBook)
+{
+    sBookDataType *tempBook;
+    sBookDataType *prevBook = NULL;
+    bool found = false;
+    uint32_t id;
+
+    if (*pBook == NULL)
+    {
+        printf("[ERROR] There is no book to delete\n");
+    }
+    else
+    {
+        printf("[BOOK] Enter the book id you wanna delete:\n");
+        id = getIdInput();
+        tempBook = *pBook;
+        if (true == isIdInList(tempBook, id))
+        {
+            /* printf("found book id, can deleteeeeeeeeee\n"); */
+            if (id == (tempBook->id))
+            {
+                *pBook = tempBook->pNextBook;
+                free(tempBook);
+            }
+            else
+            {
+                while (id != tempBook->id)
+                {
+                    prevBook = tempBook;
+                    tempBook = tempBook->pNextBook;
+                }
+
+                if (NULL == tempBook->pNextBook)
+                {
+                    prevBook->pNextBook = NULL;
+                }
+                else
+                {
+                    prevBook->pNextBook = tempBook->pNextBook;
+                }
+                free(tempBook);
+            }
+        }
+    }
+}
+
+bool isIdInList(sBookDataType *pBook, const uint32_t id)
+{
+    sBookDataType *tempBook = pBook;
+    bool bRet = false;
+
+    if (NULL != tempBook)
+    {
+        while (NULL != tempBook)
+        {
+            if (id == tempBook->id)
+            {
+                bRet = true;
+            }
+            tempBook = tempBook->pNextBook;
+        }
+    }
+    else
+    {
+        printf("[ERROR] isIdInList\n");
+    }
+    return bRet;
+}
+
+void printBookSelAcc()
+{
+    printf("----------------------------------------------------------------\n");
+    for (uint8_t i = 0; i < sizeof(sBookSellAcc)/sizeof(sBookSellAcc[0]); i++)
+    {
+        printf("\t%d. %s\n", sBookSellAcc[i].id, sBookSellAcc[i].msg);
+    }
+    printf("----------------------------------------------------------------\n");
+    printf("Please choose the action you want:\n");
+}
+
+eBookSelAccType bookSelectAcc()
+{
+    eBookSelAccType eRet;
+    uint32_t tempChoice;
+
+    tempChoice = getchar();
+    tempChoice = BOOK_CHAR_TO_NUM(tempChoice);
+    /* printf("tempChoice = %d\n", tempChoice); */
+
+    getchar(); /* clear stdin, there is a newline character still here */
+
+    if ((uint32_t)BOOK_INVALID_SEL < tempChoice)
+    {
+        eRet = BOOK_INVALID_SEL;
+    }
+    else
+    {
+        eRet = (eBookSelAccType)tempChoice;
+    }
+    /* printf("eRet = %d\n", eRet); */
+    return eRet;
 }

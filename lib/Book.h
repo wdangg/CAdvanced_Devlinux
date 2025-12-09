@@ -5,12 +5,31 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define TITLE_SIZE 50
 #define AUTHOR_SIZE 50
 #define BOOK_SIZE 4
-#define INVALID_CHOICE (-1)
-#define CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : INVALID_CHOICE)
+
+#define BOOK_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : BOOK_INVALID_SEL)
+
+typedef enum eBookSelAcc
+{
+    BOOK_ADD,
+    BOOK_DEL,
+    BOOK_INVALID_SEL,
+} eBookSelAccType;
+
+typedef struct sBookSelAcc
+{
+    eBookSelAccType id;
+    const char *msg;
+} sBookSelAccType;
+
+static const sBookSelAccType sBookSellAcc[] = {
+    {BOOK_ADD,          "Add a book"},
+    {BOOK_DEL,          "Delete a book"},
+};
 
 typedef enum
 {
@@ -29,24 +48,10 @@ typedef struct Book
     struct Book *pNextBook;
 } sBookDataType;
 
-typedef enum
-{
-    AC_EXIT_APP = 0,
-    AC_ADD_BOOK,
-    AC_DEL_BOOK,
-    AC_PRINT_BOOK_INFO,
-    AC_INVALID
-} eBookAcType;
-
 /**
  * @brief  clear all stdin for the next process
  */
 void clearStdinBuff(void);
-
-/**
- * @brief  get user choice from keyboard
- */
-eBookAcType getUserChoice(void);
 
 /**
  * @brief  get user choice from keyboard
@@ -62,5 +67,31 @@ void formatBook(sBookDataType *pBook);
  * @brief  get user choice from keyboard
  */
 void addBook(sBookDataType **pBook, sBookDataType sampleBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+
+void delBook(sBookDataType **pBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+eBookSelAccType bookSelectAcc();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void printBookSelAcc();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+bool isIdInList(sBookDataType *pBook, const uint32_t id);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+uint32_t getIdInput();
 
 #endif /* _BOOK_H_ */

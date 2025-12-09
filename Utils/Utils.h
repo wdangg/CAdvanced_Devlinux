@@ -17,4 +17,11 @@
  */
 sBookDataType getBookInput(void);
 
+/**
+ * @brief  remove the newline char when using fgets
+ *
+ */
+void trimNewline(char *str);
+
+
 #endif /* _UTILS_H_ */
