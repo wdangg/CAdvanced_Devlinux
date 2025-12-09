@@ -8,6 +8,9 @@ sBookDataType getBookInput(void)
     uint8_t sTitle[TITLE_SIZE];
     uint8_t sAuthor[AUTHOR_SIZE];
 
+    /* format the book before write data */
+    formatBook(&sRet);
+
     printf("Please text the book's title:\n");
     fgets(sTitle, sizeof(sTitle), stdin);
     strcpy(sRet.title, sTitle);

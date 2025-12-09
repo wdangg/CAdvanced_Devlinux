@@ -14,14 +14,6 @@
 
 typedef enum
 {
-    AC_EXIT_APP = 0,
-    AC_ADD_BOOK,
-    AC_DEL_BOOK,
-    AC_INVALID
-} eBookAcType;
-
-typedef enum
-{
     BOOK_STATUS_AVAILABLE = 0,
     BOOK_STATUS_BORROWED,
     BOOK_STATUS_EMPTY
@@ -36,6 +28,15 @@ typedef struct Book
     eBookStatusType status;
     struct Book *pNextBook;
 } sBookDataType;
+
+typedef enum
+{
+    AC_EXIT_APP = 0,
+    AC_ADD_BOOK,
+    AC_DEL_BOOK,
+    AC_PRINT_BOOK_INFO,
+    AC_INVALID
+} eBookAcType;
 
 /**
  * @brief  clear all stdin for the next process
