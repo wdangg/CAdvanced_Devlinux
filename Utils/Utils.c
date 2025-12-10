@@ -31,3 +31,44 @@ void trimNewline(char *str)
     if (len > 0 && str[len - 1] == '\n')
         str[len - 1] = '\0';
 }
+
+void midBookMana()
+{
+    sBookDataType tempBook;
+    eBookSelAccType eBookSelAcc;
+
+    /* init some book for test */
+    /* initLibraryForTest(); */
+
+    printBookSelAcc();
+    eBookSelAcc = bookSelectAcc();
+    if (BOOK_ADD == eBookSelAcc)
+    {
+        tempBook = getBookInput();
+        addBook(tempBook);
+    }
+    else if (BOOK_DEL == eBookSelAcc)
+    {
+        printfBookInfo();
+        delBook();
+    }
+    else if (BOOK_MODIFY_INFO == eBookSelAcc)
+    {
+        printfBookInfo();
+        modifyBook();
+    }
+}
+
+void midUserMana()
+{
+
+}
+
+void midPrintBooks()
+{
+    sBookDataType *pBook;
+
+    pBook = getBookAdd();
+    printfBookInfo(pBook);
+}
+

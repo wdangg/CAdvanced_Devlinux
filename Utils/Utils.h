@@ -2,6 +2,9 @@
 #define _UTILS_H_
 
 #include "Book.h"
+#include "User.h"
+
+void initLibraryForTest();
 
 /**
  * @brief  Deletes a book from the list.
@@ -23,5 +26,22 @@ sBookDataType getBookInput(void);
  */
 void trimNewline(char *str);
 
+/**
+ * @brief  remove the newline char when using fgets
+ *
+ */
+void midBookMana();
+
+/**
+ * @brief  remove the newline char when using fgets
+ *
+ */
+void midUserMana();
+
+/**
+ * @brief  remove the newline char when using fgets
+ *
+ */
+void midPrintBooks();
 
 #endif /* _UTILS_H_ */

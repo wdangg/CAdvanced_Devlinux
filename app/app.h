@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "Book.h"
+#include "User.h"
 #include "Utils.h"
 
 #define LIB_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : LIB_INVALID_CHOICE)

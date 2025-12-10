@@ -1,5 +1,58 @@
 #include "Book.h"
 
+static sBookDataType *pLibrary = NULL;
+
+static sBookDataType sample_1 = {
+    .id = 1,
+    .title = "De Men Phieu Luu Ky",
+    .author = "To Hoai",
+    .status = BOOK_STATUS_AVAILABLE,
+    .pNextBook = NULL
+};
+
+static sBookDataType sample_2 = {
+    .id = 2,
+    .title = "Tat Den",
+    .author = "Ngo Tat To",
+    .status = BOOK_STATUS_AVAILABLE,
+    .pNextBook = NULL
+};
+
+static sBookDataType sample_3 = {
+    .id = 3,
+    .title = "Lao Hac",
+    .author = "Nam Cao",
+    .status = BOOK_STATUS_BORROWED,
+    .pNextBook = NULL
+};
+
+static sBookDataType sample_4 = {
+    .id = 4,
+    .title = "Vo Nhat",
+    .author = "Kim Lan",
+    .status = BOOK_STATUS_AVAILABLE,
+    .pNextBook = NULL
+};
+
+static sBookDataType sample_5 = {
+    .id = 5,
+    .title = "Tuyen Kieu",
+    .author = "Nguyen Du",
+    .status = BOOK_STATUS_AVAILABLE,
+    .pNextBook = NULL
+};
+
+void initLibraryForTest(void)
+{
+    sample_1.pNextBook = &sample_2;
+    sample_2.pNextBook = &sample_3;
+    sample_3.pNextBook = &sample_4;
+    sample_4.pNextBook = &sample_5;
+    sample_5.pNextBook = NULL;
+
+    pLibrary = &sample_1;
+}
+
 void clearStdinBuff(void)
 {
     int c;
@@ -9,33 +62,34 @@ void clearStdinBuff(void)
     }
 }
 
-void printfBookInfo(sBookDataType *pBook)
+void printfBookInfo()
 {
-    sBookDataType *tempBook = pBook;
+    sBookDataType *tempBook = pLibrary;
 
     if (tempBook == NULL)
     {
         printf("There is no book in library.\n");
-        return;
     }
-
-    printf("====================================================================================\n");
-    printf("| %-2s | %-25s | %-25s | %-10s |\n",
-           "ID", "TITLE", "AUTHOR", "STATUS");
-    printf("------------------------------------------------------------------------------------\n");
-
-    while (tempBook != NULL)
+    else
     {
-        printf("| %-2d | %-25s | %-25s | %-10s |\n",
-               tempBook->id,
-               tempBook->title,
-               tempBook->author,
-               (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
-
-        tempBook = tempBook->pNextBook;
+        printf("====================================================================================\n");
+        printf("| %-2s | %-25s | %-25s | %-10s |\n",
+               "ID", "TITLE", "AUTHOR", "STATUS");
+        printf("------------------------------------------------------------------------------------\n");
+    
+        while (tempBook != NULL)
+        {
+            printf("| %-2d | %-25s | %-25s | %-10s |\n",
+                   tempBook->id,
+                   tempBook->title,
+                   tempBook->author,
+                   (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
+    
+            tempBook = tempBook->pNextBook;
+        }
+    
+        printf("====================================================================================\n");
     }
-
-    printf("====================================================================================\n");
 }
 
 void formatBook(sBookDataType *pBook)
@@ -57,15 +111,15 @@ void formatBook(sBookDataType *pBook)
     }
 }
 
-void addBook(sBookDataType **pBook, sBookDataType sampleBook)
+void addBook(sBookDataType sampleBook)
 {
     sBookDataType *tempBook;
     sBookDataType *curBookTail;
     uint8_t temp;
-
-    if (NULL != *pBook)
+    
+    if (NULL != pLibrary)
     {
-        curBookTail = (*pBook);
+        curBookTail = pLibrary;
         while (NULL != (curBookTail->pNextBook))
         {
             curBookTail = curBookTail->pNextBook;
@@ -78,9 +132,9 @@ void addBook(sBookDataType **pBook, sBookDataType sampleBook)
 
     *tempBook = sampleBook;
 
-    if (NULL == *pBook)
+    if (NULL == pLibrary)
     {
-        *pBook = tempBook;
+        pLibrary = tempBook;
         tempBook->id = 0u;
     }
     else
@@ -108,14 +162,14 @@ uint32_t getIdInput(void)
 }
 
 
-void delBook(sBookDataType **pBook)
+void delBook()
 {
     sBookDataType *tempBook;
     sBookDataType *prevBook = NULL;
     bool found = false;
     uint32_t id;
 
-    if (*pBook == NULL)
+    if (pLibrary == NULL)
     {
         printf("[ERROR] There is no book to delete\n");
     }
@@ -123,14 +177,14 @@ void delBook(sBookDataType **pBook)
     {
         printf("[BOOK] Enter the book id you wanna delete:\n");
         id = getIdInput();
-        tempBook = *pBook;
-        if (true == isIdInList(tempBook, id))
+        tempBook = pLibrary;
+        if (true == isIdInList(id))
         {
-            /* printf("found book id, can deleteeeeeeeeee\n"); */
             if (id == (tempBook->id))
             {
-                *pBook = tempBook->pNextBook;
+                pLibrary = tempBook->pNextBook;
                 free(tempBook);
+                printf("found book id, can deleteeeeeeeeee\n");
             }
             else
             {
@@ -158,9 +212,9 @@ void delBook(sBookDataType **pBook)
     }
 }
 
-bool isIdInList(sBookDataType *pBook, const uint32_t id)
+bool isIdInList(const uint32_t id)
 {
-    sBookDataType *tempBook = pBook;
+    sBookDataType *tempBook = pLibrary;
     bool bRet = false;
 
     if (NULL != tempBook)
@@ -228,13 +282,13 @@ void editBookInfo(sBookDataType *pBook)
     }
 }
 
-void modifyBook(sBookDataType **pBook)
+void modifyBook()
 {
     sBookDataType *tempBook;
     uint32_t id;
 
 
-    if (*pBook == NULL)
+    if (pLibrary == NULL)
     {
         printf("[ERROR] There is no book, cannot modify\n");
     }
@@ -242,8 +296,8 @@ void modifyBook(sBookDataType **pBook)
     {
         printf("[BOOK] Enter the book id you wanna modify:\n");
         id = getIdInput();
-        tempBook = *pBook;
-        if (true == isIdInList(tempBook, id))
+        tempBook = pLibrary;
+        if (true == isIdInList(id))
         {
             /* printf("found book id, can modify\n"); */
             if (id != (tempBook->id))
@@ -294,4 +348,9 @@ eBookSelAccType bookSelectAcc()
     }
     /* printf("eRet = %d\n", eRet); */
     return eRet;
+}
+
+sBookDataType *getBookAdd()
+{
+    return (sBookDataType *)pLibrary;
 }

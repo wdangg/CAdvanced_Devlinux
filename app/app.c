@@ -1,7 +1,5 @@
 #include "app.h"
 
-sBookDataType *pLibrary = NULL;
-
 eLibManaType getUserChoice(void)
 {
     eLibManaType userChoice = 0;
@@ -40,57 +38,7 @@ void printAppInfo(void)
 void libManagement(void)
 {
     eLibManaType inputUser = 0;
-    sBookDataType tempBook;
-    eBookSelAccType eBookSelAcc;
-
-     sBookDataType sample_1 = {
-        .id = 1,
-        .title = "De Men Phieu Luu Ky",
-        .author = "To Hoai",
-        .status = BOOK_STATUS_AVAILABLE,
-        .pNextBook = NULL
-    };
-
-    sBookDataType sample_2 = {
-        .id = 2,
-        .title = "Tat Den",
-        .author = "Ngo Tat To",
-        .status = BOOK_STATUS_AVAILABLE,
-        .pNextBook = NULL
-    };
-
-    sBookDataType sample_3 = {
-        .id = 3,
-        .title = "Lao Hac",
-        .author = "Nam Cao",
-        .status = BOOK_STATUS_BORROWED,
-        .pNextBook = NULL
-    };
-
-    sBookDataType sample_4 = {
-        .id = 4,
-        .title = "Vo Nhat",
-        .author = "Kim Lan",
-        .status = BOOK_STATUS_AVAILABLE,
-        .pNextBook = NULL
-    };
-
-    sBookDataType sample_5 = {
-        .id = 5,
-        .title = "Tuyen Kieu",
-        .author = "Nguyen Du",
-        .status = BOOK_STATUS_AVAILABLE,
-        .pNextBook = NULL
-    };
-
-    sample_1.pNextBook = &sample_2;
-    sample_2.pNextBook = &sample_3;
-    sample_3.pNextBook = &sample_4;
-    sample_4.pNextBook = &sample_5;
-    sample_5.pNextBook = NULL;
-
-    pLibrary = &sample_1; 
-
+    
     do
     {
         printAppInfo();
@@ -99,27 +47,12 @@ void libManagement(void)
         if (LIB_BOOK_INFO_MANA == inputUser)
         {
             /* printf("[LIB_MANA] Library management\n"); */
-            printBookSelAcc();
-            eBookSelAcc = bookSelectAcc();
-            if (BOOK_ADD == eBookSelAcc)
-            {
-                tempBook = getBookInput();
-                addBook(&pLibrary, tempBook);
-            }
-            else if (BOOK_DEL == eBookSelAcc)
-            {
-                printfBookInfo(pLibrary);
-                delBook(&pLibrary);
-            }
-            else if (BOOK_MODIFY_INFO == eBookSelAcc)
-            {
-                printfBookInfo(pLibrary);
-                modifyBook(&pLibrary);
-            }
+            midBookMana();
         }
         else if (LIB_USER_MANA == inputUser)
         {
-            printf("[LIB_MANA] User management\n");
+            /* printf("[LIB_MANA] User management\n"); */
+            midUserMana();
         }
         else if (LIB_BORR_RET_MANA == inputUser)
         {
@@ -132,7 +65,7 @@ void libManagement(void)
         else if (LIB_PRINT_BOOKS == inputUser)
         {
             /* printf("[LIB_MANA] Prinf all books infomation\n"); */
-            printfBookInfo(pLibrary);
+            midPrintBooks();
         }
         else if (LIB_EXIT == inputUser)
         {

@@ -58,7 +58,7 @@ void clearStdinBuff(void);
 /**
  * @brief  get user choice from keyboard
  */
-void printfBookInfo(sBookDataType *pBook);
+void printfBookInfo();
 
 /**
  * @brief  get user choice from keyboard
@@ -68,17 +68,17 @@ void formatBook(sBookDataType *pBook);
 /**
  * @brief  get user choice from keyboard
  */
-void addBook(sBookDataType **pBook, sBookDataType sampleBook);
+void addBook(sBookDataType sampleBook);
 
 /**
  * @brief  get user choice from keyboard
  */
-void delBook(sBookDataType **pBook);
+void delBook();
 
 /**
  * @brief  get user choice from keyboard
  */
-void modifyBook(sBookDataType **pBook);
+void modifyBook();
 
 /**
  * @brief  get user choice from keyboard
@@ -98,11 +98,16 @@ void printBookSelAcc();
 /**
  * @brief  get user choice from keyboard
  */
-bool isIdInList(sBookDataType *pBook, const uint32_t id);
+bool isIdInList(const uint32_t id);
 
 /**
  * @brief  get user choice from keyboard
  */
 uint32_t getIdInput();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+sBookDataType *getBookAdd();
 
 #endif /* _BOOK_H_ */
