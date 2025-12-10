@@ -57,11 +57,6 @@ void printUserInfo();
 /**
  * @brief  get user choice from keyboard
  */
-sUserDataType *getUserAdd();
-
-/**
- * @brief  get user choice from keyboard
- */
 void addUser(sUserDataType sampleUser);
 
 /**
@@ -93,5 +88,10 @@ bool isUserIdInList(const uint32_t id);
  * @brief  get user choice from keyboard
  */
 void editUserInfo(sUserDataType *sampleUser);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+sUserDataType *getUserAdd();
 
 #endif /* _USER_H_ */

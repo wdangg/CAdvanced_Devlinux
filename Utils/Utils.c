@@ -112,9 +112,11 @@ void midUserMana()
 
 void midPrintBooks()
 {
-    sBookDataType *pBook;
+    printfBookInfo();
+}
 
-    pBook = getBookAdd();
-    printfBookInfo(pBook);
+void midBorrMana()
+{
+
 }
 

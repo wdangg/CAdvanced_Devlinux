@@ -42,6 +42,12 @@ void midUserMana();
  * @brief  remove the newline char when using fgets
  *
  */
+void midBorrMana();
+
+/**
+ * @brief  remove the newline char when using fgets
+ *
+ */
 void midPrintBooks();
 
 /**

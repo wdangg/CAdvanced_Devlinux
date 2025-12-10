@@ -67,11 +67,6 @@ void printUserInfo()
     }
 }
 
-sUserDataType *getUserAdd()
-{
-    return (sUserDataType *)pUser;
-}
-
 void addUser(sUserDataType sampleUser)
 {
     sUserDataType *tempUser;
@@ -311,4 +306,9 @@ void editUserInfo(sUserDataType *sampleUser)
 
     strcpy((char*)sampleUser->name, (char*)buff);
     printf("User name updated successfully!\n");
+}
+
+sUserDataType *getUserAdd()
+{
+    return (sUserDataType *)pUser;
 }
