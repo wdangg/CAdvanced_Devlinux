@@ -94,16 +94,16 @@ void midUserMana()
         tempUser = midGetUserInput();
         addUser(tempUser);
     }
-/*     else if (USER_DEL == eUserSelAcc)
+    else if (USER_DEL == eUserSelAcc)
     {
         printUserInfo();
         delUser();
     }
-    else if (USER_MODIFY == eUserSelAcc)
+    /* else if (USER_MODIFY == eUserSelAcc)
     {
         printUserInfo();
         modifyUser();
-    }  */
+    }   */
     else if (USER_PRINT == eUserSelAcc)
     {
         printUserInfo();

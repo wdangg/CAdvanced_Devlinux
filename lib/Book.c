@@ -148,20 +148,6 @@ void addBook(sBookDataType sampleBook)
     /* printfBookInfo(tempBook); */
 }
 
-uint32_t getIdInput(void)
-{
-    uint32_t retVal = 0;
-    uint8_t buff[0xFF];
-
-    if (fgets((char*)buff, sizeof(buff), stdin) != NULL)
-    {
-        retVal = (uint32_t)strtoul((char*)buff, NULL, 10);
-    }
-
-    return retVal;
-}
-
-
 void delBook()
 {
     sBookDataType *tempBook;
@@ -178,7 +164,7 @@ void delBook()
         printf("[BOOK] Enter the book id you wanna delete:\n");
         id = getIdInput();
         tempBook = pLibrary;
-        if (true == isIdInList(id))
+        if (true == isBookIdInList(id))
         {
             if (id == (tempBook->id))
             {
@@ -212,7 +198,7 @@ void delBook()
     }
 }
 
-bool isIdInList(const uint32_t id)
+bool isBookIdInList(const uint32_t id)
 {
     sBookDataType *tempBook = pLibrary;
     bool bRet = false;
@@ -230,7 +216,7 @@ bool isIdInList(const uint32_t id)
     }
     else
     {
-        printf("[ERROR] isIdInList\n");
+        printf("[ERROR] isBookIdInList\n");
     }
     return bRet;
 }
@@ -297,7 +283,7 @@ void modifyBook()
         printf("[BOOK] Enter the book id you wanna modify:\n");
         id = getIdInput();
         tempBook = pLibrary;
-        if (true == isIdInList(id))
+        if (true == isBookIdInList(id))
         {
             /* printf("found book id, can modify\n"); */
             if (id != (tempBook->id))

@@ -141,3 +141,76 @@ uint32_t countBookBorrowed(sUserDataType *sampleUser)
 
     return retVal;
 }
+
+void delUser()
+{
+    sUserDataType *tempUser;
+    sUserDataType *prevUser = NULL;
+    bool found = false;
+    uint32_t id;
+
+    if (pUser == NULL)
+    {
+        printf("[ERROR] There is no book to delete\n");
+    }
+    else
+    {
+        printf("[BOOK] Enter the book id you wanna delete:\n");
+        id = getIdInput();
+        tempUser = pUser;
+        if (true == isUserIdInList(id))
+        {
+            if (id == (tempUser->id))
+            {
+                pUser = tempUser->pNextUser;
+                free(tempUser);
+                printf("found book id, can deleteeeeeeeeee\n");
+            }
+            else
+            {
+                while (id != tempUser->id)
+                {
+                    prevUser = tempUser;
+                    tempUser = tempUser->pNextUser;
+                }
+
+                if (NULL == tempUser->pNextUser)
+                {
+                    prevUser->pNextUser = NULL;
+                }
+                else
+                {
+                    prevUser->pNextUser = tempUser->pNextUser;
+                }
+                free(tempUser);
+            }
+        }
+        else
+        {
+            printf("[ERROR] Invalid id\n");
+        }
+    }
+}
+
+bool isUserIdInList(const uint32_t id)
+{
+    sUserDataType *tempUser = pUser;
+    bool bRet = false;
+
+    if (NULL != tempUser)
+    {
+        while (NULL != tempUser)
+        {
+            if (id == tempUser->id)
+            {
+                bRet = true;
+            }
+            tempUser = tempUser->pNextUser;
+        }
+    }
+    else
+    {
+        printf("[ERROR] isUserIdInList\n");
+    }
+    return bRet;
+}

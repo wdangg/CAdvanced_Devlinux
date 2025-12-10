@@ -98,7 +98,7 @@ void printBookSelAcc();
 /**
  * @brief  get user choice from keyboard
  */
-bool isIdInList(const uint32_t id);
+bool isBookIdInList(const uint32_t id);
 
 /**
  * @brief  get user choice from keyboard

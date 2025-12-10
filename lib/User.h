@@ -67,11 +67,21 @@ void addUser(sUserDataType sampleUser);
 /**
  * @brief  get user choice from keyboard
  */
+void delUser();
+
+/**
+ * @brief  get user choice from keyboard
+ */
 void formatUser(sUserDataType *sampleUser);
 
 /**
  * @brief  get user choice from keyboard
  */
 uint32_t countBookBorrowed(sUserDataType *sampleUser);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+bool isUserIdInList(const uint32_t id);
 
 #endif /* _USER_H_ */
