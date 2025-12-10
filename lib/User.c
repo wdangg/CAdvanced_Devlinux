@@ -75,42 +75,78 @@ sUserDataType *getUserAdd()
 void addUser(sUserDataType sampleUser)
 {
     sUserDataType *tempUser;
-    sUserDataType *curUserTail;
-    uint8_t temp;
-    
-    if (NULL != pUser)
+    sUserDataType *curUserTail = pUser;
+    sUserDataType *checker = pUser;
+
+    bool isExist = false;
+
+    /* ==========================
+       Check if user already exist
+       ========================== */
+    while (NULL != checker)
     {
-        curUserTail = pUser;
-        while (NULL != (curUserTail->pNextUser))
+        if (0 == strcmp((char*)checker->name, (char*)sampleUser.name))
         {
-            curUserTail = curUserTail->pNextUser;
-            /* code */
+            isExist = true;
+        }
+        if (NULL != checker->pNextUser)
+        {
+            checker = checker->pNextUser;
+        }
+        else
+        {
+            checker = NULL;
         }
     }
 
-    tempUser = (sUserDataType *)malloc(sizeof(sUserDataType));
-    /* printf("tempUser = %p\n", *tempUser); */
-
-    *tempUser = sampleUser;
-
-    if (NULL == pUser)
+    if (true == isExist)
     {
-        pUser = tempUser;
-        tempUser->id = 0u;
+        printf("[ERROR] User '%s' already exists. Cannot add this\n",
+               sampleUser.name);
     }
     else
     {
-        tempUser->id = ((curUserTail->id) + 1u);
-        curUserTail->pNextUser = tempUser;
-    }
+        /* ==========================
+                ADD NEW USER
+           ========================== */
 
-    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
-    {
-        tempUser->pBookBorrowed[i] = NULL;
+        /* Find tail */
+        if (NULL != curUserTail)
+        {
+            while (NULL != curUserTail->pNextUser)
+            {
+                curUserTail = curUserTail->pNextUser;
+            }
+        }
+
+        /* Allocate new node */
+        tempUser = (sUserDataType *)malloc(sizeof(sUserDataType));
+        *tempUser = sampleUser;
+
+        /* Insert into list */
+        if (NULL == pUser)
+        {
+            pUser = tempUser;
+            tempUser->id = 0u;
+        }
+        else
+        {
+            tempUser->id = curUserTail->id + 1u;
+            curUserTail->pNextUser = tempUser;
+        }
+
+        /* Initialize borrowed book list */
+        for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+        {
+            tempUser->pBookBorrowed[i] = NULL;
+        }
+
+        tempUser->pNextUser = NULL;
+
+        printf("[INFO] User '%s' added successfully.\n", sampleUser.name);
     }
-    tempUser->pNextUser = NULL;
-    /* printUserInfo(); */
 }
+
 
 void formatUser(sUserDataType *pSample)
 {
@@ -148,6 +184,8 @@ void delUser()
     sUserDataType *prevUser = NULL;
     bool found = false;
     uint32_t id;
+    uint8_t delBuff[USER_NAME_SIZE];
+
 
     if (pUser == NULL)
     {
@@ -163,8 +201,9 @@ void delUser()
             if (id == (tempUser->id))
             {
                 pUser = tempUser->pNextUser;
+                strcpy((char*)delBuff, (char*)tempUser->name);
                 free(tempUser);
-                printf("found book id, can deleteeeeeeeeee\n");
+                printf("[INFO] Deleted user '%s' successfuly!\n", delBuff);
             }
             else
             {
@@ -182,8 +221,11 @@ void delUser()
                 {
                     prevUser->pNextUser = tempUser->pNextUser;
                 }
+                strcpy((char*)delBuff, (char*)tempUser->name);
                 free(tempUser);
+                printf("[INFO] Deleted user: %s\n", delBuff);
             }
+
         }
         else
         {
