@@ -1,8 +1,45 @@
 #include "User.h"
 
-void printUserInfo(sUserDataType *pUser)
+sUserDataType *pUser = NULL;
+
+void printUserlAcc()
+{
+    printf("----------------------------------------------------------------\n");
+    for (uint8_t i = 0; i < sizeof(sUserSelAcc)/sizeof(sUserSelAcc[0]); i++)
+    {
+        printf("\t%d. %s\n", sUserSelAcc[i].id, sUserSelAcc[i].msg);
+    }
+    printf("----------------------------------------------------------------\n");
+    printf("Please choose the action you want:\n");
+}
+
+eUserSelAccType userSelectAcc()
+{
+    eUserSelAccType eRet;
+    uint32_t tempChoice;
+
+    tempChoice = getchar();
+    tempChoice = USER_CHAR_TO_NUM(tempChoice);
+    /* printf("tempChoice = %d\n", tempChoice); */
+
+    getchar(); /* clear stdin, there is a newline character still here */
+
+    if ((uint32_t)USER_INVALID_ACC < tempChoice)
+    {
+        eRet = USER_INVALID_ACC;
+    }
+    else
+    {
+        eRet = (eUserSelAccType)tempChoice;
+    }
+    /* printf("eRet = %d\n", eRet);  */
+    return eRet;
+}
+
+void printUserInfo()
 {
     sUserDataType *tempUser = pUser;
+    uint32_t totalBookBorrowed;
 
     if (tempUser == NULL)
     {
@@ -17,10 +54,11 @@ void printUserInfo(sUserDataType *pUser)
     
         while (tempUser != NULL)
         {
+            totalBookBorrowed = countBookBorrowed(tempUser);
             printf("| %-2d | %-25s | %-25d |\n",
                    tempUser->id,
                    tempUser->name,
-                   (sizeof(tempUser->bookBorrowed)/sizeof(tempUser->bookBorrowed[0])));
+                   totalBookBorrowed);
     
             tempUser = tempUser->pNextUser;
         }
@@ -29,7 +67,77 @@ void printUserInfo(sUserDataType *pUser)
     }
 }
 
-void userMana(sUserDataType **pUser)
+sUserDataType *getUserAdd()
 {
+    return (sUserDataType *)pUser;
+}
 
+void addUser(sUserDataType sampleUser)
+{
+    sUserDataType *tempUser;
+    sUserDataType *curUserTail;
+    uint8_t temp;
+    
+    if (NULL != pUser)
+    {
+        curUserTail = pUser;
+        while (NULL != (curUserTail->pNextUser))
+        {
+            curUserTail = curUserTail->pNextUser;
+            /* code */
+        }
+    }
+
+    tempUser = (sUserDataType *)malloc(sizeof(sUserDataType));
+    /* printf("tempUser = %p\n", *tempUser); */
+
+    *tempUser = sampleUser;
+
+    if (NULL == pUser)
+    {
+        pUser = tempUser;
+        tempUser->id = 0u;
+    }
+    else
+    {
+        tempUser->id = ((curUserTail->id) + 1u);
+        curUserTail->pNextUser = tempUser;
+    }
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        tempUser->pBookBorrowed[i] = NULL;
+    }
+    tempUser->pNextUser = NULL;
+    /* printUserInfo(); */
+}
+
+void formatUser(sUserDataType *pSample)
+{
+    uint8_t temp = 0;
+
+    if (NULL != pSample)
+    {
+        pSample->id = 0xFFFFu;
+        for (temp = 0; temp < USER_NAME_SIZE; temp++)
+        {
+            pSample->name[temp] = 0;
+        }
+        memset(pSample->pBookBorrowed, NULL, sizeof(pSample->pBookBorrowed));
+    }
+}
+
+uint32_t countBookBorrowed(sUserDataType *sampleUser)
+{
+    uint32_t retVal = 0u;
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        if (NULL != sampleUser->pBookBorrowed[i])
+        {
+            retVal++;
+        }
+    }
+
+    return retVal;
 }

@@ -25,6 +25,25 @@ sBookDataType getBookInput(void)
     return sRet;
 }
 
+sUserDataType midGetUserInput()
+{
+    sUserDataType sRet;
+    uint32_t id;
+    uint8_t temp;
+    uint8_t strName[USER_NAME_SIZE];
+
+    /* format the user before write data */
+    formatUser(&sRet);
+
+    printf("Please text the user name:\n");
+    fgets(strName, sizeof(strName), stdin);
+    trimNewline(strName);
+    strcpy(sRet.name, strName);
+    printf("strName: %s\n", strName);
+
+    return sRet;
+}
+
 void trimNewline(char *str)
 {
     size_t len = strlen(str);
@@ -61,7 +80,34 @@ void midBookMana()
 
 void midUserMana()
 {
+    sUserDataType tempUser;
+    eUserSelAccType eUserSelAcc;
 
+    
+    /* init some users for test */
+    /* initUserForTest(); */
+    printUserlAcc();
+
+    eUserSelAcc = userSelectAcc();
+    if (USER_ADD == eUserSelAcc)
+    {
+        tempUser = midGetUserInput();
+        addUser(tempUser);
+    }
+/*     else if (USER_DEL == eUserSelAcc)
+    {
+        printUserInfo();
+        delUser();
+    }
+    else if (USER_MODIFY == eUserSelAcc)
+    {
+        printUserInfo();
+        modifyUser();
+    }  */
+    else if (USER_PRINT == eUserSelAcc)
+    {
+        printUserInfo();
+    }
 }
 
 void midPrintBooks()

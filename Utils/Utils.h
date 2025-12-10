@@ -44,4 +44,9 @@ void midUserMana();
  */
 void midPrintBooks();
 
+/**
+ * @brief  get user choice from keyboard
+ */
+sUserDataType midGetUserInput();
+
 #endif /* _UTILS_H_ */
