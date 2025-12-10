@@ -274,7 +274,7 @@ void modifyBook()
     uint32_t id;
 
 
-    if (pLibrary == NULL)
+    if (NULL == pLibrary)
     {
         printf("[ERROR] There is no book, cannot modify\n");
     }
@@ -297,7 +297,7 @@ void modifyBook()
         }
         else
         {
-            printf("[ERROR] Invalid id\n");
+            printf("[ERROR] Invalid book id\n");
         }
     }
 }

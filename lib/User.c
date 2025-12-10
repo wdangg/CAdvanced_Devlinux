@@ -192,6 +192,40 @@ void delUser()
     }
 }
 
+void modifyUser()
+{
+    sUserDataType *tempUser;
+    uint32_t id;
+
+
+    if (NULL == pUser)
+    {
+        printf("[ERROR] There is no user, cannot modify\n");
+    }
+    else
+    {
+        printf("[BOOK] Enter the user id you wanna modify:\n");
+        id = getIdInput();
+        tempUser = pUser;
+        if (true == isUserIdInList(id))
+        {
+            /* printf("found book id, can modify\n"); */
+            if (id != (tempUser->id))
+            {
+                while (id != tempUser->id)
+                {
+                    tempUser = tempUser->pNextUser;
+                }
+            }
+            editUserInfo(tempUser);
+        }
+        else
+        {
+            printf("[ERROR] Invalid user id\n");
+        }
+    }
+}
+
 bool isUserIdInList(const uint32_t id)
 {
     sUserDataType *tempUser = pUser;
@@ -213,4 +247,26 @@ bool isUserIdInList(const uint32_t id)
         printf("[ERROR] isUserIdInList\n");
     }
     return bRet;
+}
+
+void editUserInfo(sUserDataType *sampleUser)
+{
+    uint8_t buff[0xFF];
+
+    printf("=== EDIT USER INFO ===\n");
+    printf("Current name : %s\n", sampleUser->name);
+
+    printf("Enter new name (Enter to skip): ");
+    fgets((char*)buff, sizeof(buff), stdin);
+
+    buff[strcspn((char*)buff, "\n")] = 0;
+
+    if (strlen((char*)buff) == 0)
+    {
+        printf("No changes were made.\n");
+        return;
+    }
+
+    strcpy((char*)sampleUser->name, (char*)buff);
+    printf("User name updated successfully!\n");
 }

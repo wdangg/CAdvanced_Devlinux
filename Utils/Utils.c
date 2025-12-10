@@ -99,11 +99,11 @@ void midUserMana()
         printUserInfo();
         delUser();
     }
-    /* else if (USER_MODIFY == eUserSelAcc)
+    else if (USER_MODIFY == eUserSelAcc)
     {
         printUserInfo();
         modifyUser();
-    }   */
+    }
     else if (USER_PRINT == eUserSelAcc)
     {
         printUserInfo();

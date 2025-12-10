@@ -72,6 +72,11 @@ void delUser();
 /**
  * @brief  get user choice from keyboard
  */
+void modifyUser();
+
+/**
+ * @brief  get user choice from keyboard
+ */
 void formatUser(sUserDataType *sampleUser);
 
 /**
@@ -83,5 +88,10 @@ uint32_t countBookBorrowed(sUserDataType *sampleUser);
  * @brief  get user choice from keyboard
  */
 bool isUserIdInList(const uint32_t id);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void editUserInfo(sUserDataType *sampleUser);
 
 #endif /* _USER_H_ */
