@@ -57,7 +57,7 @@ void libManagement(void)
         else if (LIB_BORR_RET_MANA == inputUser)
         {
             printf("[LIB_MANA] Borrow - Return books management\n");
-            midBorrMana();
+            midBorrRetMana();
         }
         else if (LIB_FIND_BOOK == inputUser)
         {

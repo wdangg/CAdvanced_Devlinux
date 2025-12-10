@@ -115,8 +115,22 @@ void midPrintBooks()
     printfBookInfo();
 }
 
-void midBorrMana()
+void midBorrRetMana()
 {
+    eBorrRetSelAccType eBorrRetSelAcc;
+    /* init some users for test */
+    /* initUserForTest(); */
+    printBorrRetlAcc();
 
+    eBorrRetSelAcc = borrRetSelectAcc();
+    if (BORR_RET_BORROW == eBorrRetSelAcc)
+    {
+        /* tempUser = midGetUserInput();
+        addUser(tempUser); */
+    }
+    else if (BORR_RET_PIRNT == eBorrRetSelAcc)
+    {
+        
+    }
 }
 

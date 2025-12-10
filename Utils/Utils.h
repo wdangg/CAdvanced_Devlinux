@@ -3,6 +3,7 @@
 
 #include "Book.h"
 #include "User.h"
+#include "Borrow.h"
 
 void initLibraryForTest();
 
@@ -42,7 +43,7 @@ void midUserMana();
  * @brief  remove the newline char when using fgets
  *
  */
-void midBorrMana();
+void midBorrRetMana();
 
 /**
  * @brief  remove the newline char when using fgets
