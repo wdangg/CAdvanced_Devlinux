@@ -25,7 +25,7 @@ sBookData_t getBookInput(void)
     return sRet;
 }
 
-sUserData_t midGetUserInput()
+sUserData_t GetUserInput()
 {
     sUserData_t sRet;
     uint32_t id;
@@ -51,7 +51,7 @@ void trimNewline(char *str)
         str[len - 1] = '\0';
 }
 
-void midBookMana()
+void BookMana()
 {
     sBookData_t tempBook;
     eBookSelAcc_t eBookSelAcc;
@@ -78,7 +78,7 @@ void midBookMana()
     }
 }
 
-void midUserMana()
+void UserMana()
 {
     sUserData_t tempUser;
     eUserSelAcc_t eUserSelAcc;
@@ -91,7 +91,7 @@ void midUserMana()
     eUserSelAcc = userSelectAcc();
     if (USER_ADD == eUserSelAcc)
     {
-        tempUser = midGetUserInput();
+        tempUser = GetUserInput();
         addUser(tempUser);
     }
     else if (USER_DEL == eUserSelAcc)
@@ -110,12 +110,12 @@ void midUserMana()
     }
 }
 
-void midPrintBooks()
+void PrintBooks()
 {
     printfBookInfo();
 }
 
-void midBorrRetMana()
+void BorrRetMana()
 {
     eBorrRetSelAcc_t eBorrRetSelAcc;
     /* init some users for test */
@@ -125,7 +125,7 @@ void midBorrRetMana()
     eBorrRetSelAcc = borrRetSelectAcc();
     if (BORR_RET_BORROW == eBorrRetSelAcc)
     {
-        /* tempUser = midGetUserInput();
+        /* tempUser = GetUserInput();
         addUser(tempUser); */
     }
     else if (BORR_RET_PIRNT == eBorrRetSelAcc)

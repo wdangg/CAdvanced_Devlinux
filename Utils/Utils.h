@@ -31,29 +31,29 @@ void trimNewline(char *str);
  * @brief  remove the newline char when using fgets
  *
  */
-void midBookMana();
+void BookMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void midUserMana();
+void UserMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void midBorrRetMana();
+void BorrRetMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void midPrintBooks();
+void PrintBooks();
 
 /**
  * @brief  get user choice from keyboard
  */
-sUserData_t midGetUserInput();
+sUserData_t GetUserInput();
 
 #endif /* _UTILS_H_ */

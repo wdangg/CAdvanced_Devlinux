@@ -47,17 +47,17 @@ void libManagement(void)
         if (LIB_BOOK_INFO_MANA == inputUser)
         {
             /* printf("[LIB_MANA] Library management\n"); */
-            midBookMana();
+            BookMana();
         }
         else if (LIB_USER_MANA == inputUser)
         {
             /* printf("[LIB_MANA] User management\n"); */
-            midUserMana();
+            UserMana();
         }
         else if (LIB_BORR_RET_MANA == inputUser)
         {
             printf("[LIB_MANA] Borrow - Return books management\n");
-            midBorrRetMana();
+            BorrRetMana();
         }
         else if (LIB_FIND_BOOK == inputUser)
         {
@@ -66,7 +66,7 @@ void libManagement(void)
         else if (LIB_PRINT_BOOKS == inputUser)
         {
             /* printf("[LIB_MANA] Prinf all books infomation\n"); */
-            midPrintBooks();
+            PrintBooks();
         }
         else if (LIB_EXIT == inputUser)
         {
