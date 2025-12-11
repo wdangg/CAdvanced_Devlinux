@@ -23,8 +23,10 @@ TARGET = out
 CC = gcc
 
 SRC_DIRS = $(PROJECT_DIR)/src 
-SRC_DIRS += $(PROJECT_DIR)/lib
-SRC_DIRS += $(PROJECT_DIR)/app
+SRC_DIRS += $(PROJECT_DIR)/lib/Book
+SRC_DIRS += $(PROJECT_DIR)/lib/Borrow
+SRC_DIRS += $(PROJECT_DIR)/lib/User
+SRC_DIRS += $(PROJECT_DIR)/lib/Common
 SRC_DIRS += $(PROJECT_DIR)/Utils
 
 # source file
@@ -32,8 +34,11 @@ SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
 # include directory
 INC_DIRS = $(PROJECT_DIR)/inc
-INC_DIRS += $(PROJECT_DIR)/app
 INC_DIRS += $(PROJECT_DIR)/lib
+INC_DIRS += $(PROJECT_DIR)/lib/Book
+INC_DIRS += $(PROJECT_DIR)/lib/Borrow
+INC_DIRS += $(PROJECT_DIR)/lib/Common
+INC_DIRS += $(PROJECT_DIR)/lib/USer
 INC_DIRS += $(PROJECT_DIR)/Utils
 
 # compiler flags
