@@ -1,6 +1,6 @@
 #include "User.h"
 
-sUserDataType *pUser = NULL;
+sUserData_t *pUser = NULL;
 
 void printUserlAcc()
 {
@@ -13,9 +13,9 @@ void printUserlAcc()
     printf("Please choose the action you want:\n");
 }
 
-eUserSelAccType userSelectAcc()
+eUserSelAcc_t userSelectAcc()
 {
-    eUserSelAccType eRet;
+    eUserSelAcc_t eRet;
     uint32_t tempChoice;
 
     tempChoice = getchar();
@@ -30,7 +30,7 @@ eUserSelAccType userSelectAcc()
     }
     else
     {
-        eRet = (eUserSelAccType)tempChoice;
+        eRet = (eUserSelAcc_t)tempChoice;
     }
     /* printf("eRet = %d\n", eRet);  */
     return eRet;
@@ -38,7 +38,7 @@ eUserSelAccType userSelectAcc()
 
 void printUserInfo()
 {
-    sUserDataType *tempUser = pUser;
+    sUserData_t *tempUser = pUser;
     uint32_t totalBookBorrowed;
 
     if (tempUser == NULL)
@@ -67,11 +67,11 @@ void printUserInfo()
     }
 }
 
-void addUser(sUserDataType sampleUser)
+void addUser(sUserData_t sampleUser)
 {
-    sUserDataType *tempUser;
-    sUserDataType *curUserTail = pUser;
-    sUserDataType *checker = pUser;
+    sUserData_t *tempUser;
+    sUserData_t *curUserTail = pUser;
+    sUserData_t *checker = pUser;
 
     bool isExist = false;
 
@@ -115,7 +115,7 @@ void addUser(sUserDataType sampleUser)
         }
 
         /* Allocate new node */
-        tempUser = (sUserDataType *)malloc(sizeof(sUserDataType));
+        tempUser = (sUserData_t *)malloc(sizeof(sUserData_t));
         *tempUser = sampleUser;
 
         /* Insert into list */
@@ -143,7 +143,7 @@ void addUser(sUserDataType sampleUser)
 }
 
 
-void formatUser(sUserDataType *pSample)
+void formatUser(sUserData_t *pSample)
 {
     uint8_t temp = 0;
 
@@ -158,7 +158,7 @@ void formatUser(sUserDataType *pSample)
     }
 }
 
-uint32_t countBookBorrowed(sUserDataType *sampleUser)
+uint32_t countBookBorrowed(sUserData_t *sampleUser)
 {
     uint32_t retVal = 0u;
 
@@ -175,8 +175,8 @@ uint32_t countBookBorrowed(sUserDataType *sampleUser)
 
 void delUser()
 {
-    sUserDataType *tempUser;
-    sUserDataType *prevUser = NULL;
+    sUserData_t *tempUser;
+    sUserData_t *prevUser = NULL;
     bool found = false;
     uint32_t id;
     uint8_t delBuff[USER_NAME_SIZE];
@@ -231,7 +231,7 @@ void delUser()
 
 void modifyUser()
 {
-    sUserDataType *tempUser;
+    sUserData_t *tempUser;
     uint32_t id;
 
 
@@ -265,7 +265,7 @@ void modifyUser()
 
 bool isUserIdInList(const uint32_t id)
 {
-    sUserDataType *tempUser = pUser;
+    sUserData_t *tempUser = pUser;
     bool bRet = false;
 
     if (NULL != tempUser)
@@ -286,7 +286,7 @@ bool isUserIdInList(const uint32_t id)
     return bRet;
 }
 
-void editUserInfo(sUserDataType *sampleUser)
+void editUserInfo(sUserData_t *sampleUser)
 {
     uint8_t buff[0xFF];
 
@@ -308,7 +308,7 @@ void editUserInfo(sUserDataType *sampleUser)
     printf("User name updated successfully!\n");
 }
 
-sUserDataType *getUserAdd()
+sUserData_t *getUserAdd()
 {
-    return (sUserDataType *)pUser;
+    return (sUserData_t *)pUser;
 }

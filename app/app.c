@@ -1,8 +1,8 @@
 #include "app.h"
 
-eLibManaType getUserChoice(void)
+eLibMana_t getUserChoice(void)
 {
-    eLibManaType userChoice = 0;
+    eLibMana_t userChoice = 0;
     uint32_t tempChoice = 0;
 
     tempChoice = getchar();
@@ -17,7 +17,7 @@ eLibManaType getUserChoice(void)
     }
     else
     {
-        userChoice = (eLibManaType)tempChoice;
+        userChoice = (eLibMana_t)tempChoice;
     }
 
     /* printf("userChoice = %d\n", userChoice);  */
@@ -37,7 +37,7 @@ void printAppInfo(void)
 
 void libManagement(void)
 {
-    eLibManaType inputUser = 0;
+    eLibMana_t inputUser = 0;
     
     do
     {

@@ -19,7 +19,7 @@ void initLibraryForTest();
  *
  * @return BookRetCode_t  Status code of the delete operation.
  */
-sBookDataType getBookInput(void);
+sBookData_t getBookInput(void);
 
 /**
  * @brief  remove the newline char when using fgets
@@ -54,6 +54,6 @@ void midPrintBooks();
 /**
  * @brief  get user choice from keyboard
  */
-sUserDataType midGetUserInput();
+sUserData_t midGetUserInput();
 
 #endif /* _UTILS_H_ */

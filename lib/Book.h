@@ -19,15 +19,15 @@ typedef enum eBookSelAcc
     BOOK_DEL,
     BOOK_MODIFY_INFO,
     BOOK_INVALID_SEL,
-} eBookSelAccType;
+} eBookSelAcc_t;
 
 typedef struct sBookSelAcc
 {
-    eBookSelAccType id;
+    eBookSelAcc_t id;
     const char *msg;
-} sBookSelAccType;
+} sBookSelAcc_t;
 
-static const sBookSelAccType sBookSellAcc[] = {
+static const sBookSelAcc_t sBookSellAcc[] = {
     {BOOK_ADD,          "Add a book"},
     {BOOK_DEL,          "Delete a book"},
     {BOOK_MODIFY_INFO,  "Modify book infomation"},
@@ -38,7 +38,7 @@ typedef enum
     BOOK_STATUS_AVAILABLE = 0,
     BOOK_STATUS_BORROWED,
     BOOK_STATUS_EMPTY
-} eBookStatusType;
+} eBookStatus_t;
 
 typedef struct Book
 {
@@ -46,9 +46,9 @@ typedef struct Book
     uint32_t id;
     uint8_t title[TITLE_SIZE];
     uint8_t author[AUTHOR_SIZE];
-    eBookStatusType status;
+    eBookStatus_t status;
     struct Book *pNextBook;
-} sBookDataType;
+} sBookData_t;
 
 /**
  * @brief  clear all stdin for the next process
@@ -63,12 +63,12 @@ void printfBookInfo();
 /**
  * @brief  get user choice from keyboard
  */
-void formatBook(sBookDataType *pBook);
+void formatBook(sBookData_t *pBook);
 
 /**
  * @brief  get user choice from keyboard
  */
-void addBook(sBookDataType sampleBook);
+void addBook(sBookData_t sampleBook);
 
 /**
  * @brief  get user choice from keyboard
@@ -83,12 +83,12 @@ void modifyBook();
 /**
  * @brief  get user choice from keyboard
  */
-void editBookInfo(sBookDataType *pBook);
+void editBookInfo(sBookData_t *pBook);
 
 /**
  * @brief  get user choice from keyboard
  */
-eBookSelAccType bookSelectAcc();
+eBookSelAcc_t bookSelectAcc();
 
 /**
  * @brief  get user choice from keyboard
@@ -108,6 +108,6 @@ uint32_t getIdInput();
 /**
  * @brief  get user choice from keyboard
  */
-sBookDataType *getBookAdd();
+sBookData_t *getBookAdd();
 
 #endif /* _BOOK_H_ */

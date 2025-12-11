@@ -11,15 +11,15 @@ typedef enum eBorr
     BORR_RET_BORROW,
     BORR_RET_PIRNT,
     BORR_RET_INVALID_ACC
-} eBorrRetSelAccType;
+} eBorrRetSelAcc_t;
 
 typedef struct sBorr
 {
-    eBorrRetSelAccType id;
+    eBorrRetSelAcc_t id;
     const char *msg;
-} sBorrRetSelAccType;
+} sBorrRetSelAcc_t;
 
-static const sBorrRetSelAccType sBorrRetSelAcc[] = {
+static const sBorrRetSelAcc_t sBorrRetSelAcc[] = {
     {BORR_RET_BORROW,       "Add an user"},
     {BORR_RET_PIRNT,        "Print all book status"},
 };
@@ -32,6 +32,6 @@ void printBorrRetlAcc();
 /**
  * @brief  get user choice from keyboard
  */
-eBorrRetSelAccType borrRetSelectAcc();
+eBorrRetSelAcc_t borrRetSelectAcc();
 
 #endif/* _BORROW_H_ */

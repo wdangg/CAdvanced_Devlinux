@@ -1,8 +1,8 @@
 #include "Book.h"
 
-static sBookDataType *pLibrary = NULL;
+static sBookData_t *pLibrary = NULL;
 
-static sBookDataType sample_1 = {
+static sBookData_t sample_1 = {
     .id = 1,
     .title = "De Men Phieu Luu Ky",
     .author = "To Hoai",
@@ -10,7 +10,7 @@ static sBookDataType sample_1 = {
     .pNextBook = NULL
 };
 
-static sBookDataType sample_2 = {
+static sBookData_t sample_2 = {
     .id = 2,
     .title = "Tat Den",
     .author = "Ngo Tat To",
@@ -18,7 +18,7 @@ static sBookDataType sample_2 = {
     .pNextBook = NULL
 };
 
-static sBookDataType sample_3 = {
+static sBookData_t sample_3 = {
     .id = 3,
     .title = "Lao Hac",
     .author = "Nam Cao",
@@ -26,7 +26,7 @@ static sBookDataType sample_3 = {
     .pNextBook = NULL
 };
 
-static sBookDataType sample_4 = {
+static sBookData_t sample_4 = {
     .id = 4,
     .title = "Vo Nhat",
     .author = "Kim Lan",
@@ -34,7 +34,7 @@ static sBookDataType sample_4 = {
     .pNextBook = NULL
 };
 
-static sBookDataType sample_5 = {
+static sBookData_t sample_5 = {
     .id = 5,
     .title = "Tuyen Kieu",
     .author = "Nguyen Du",
@@ -64,7 +64,7 @@ void clearStdinBuff(void)
 
 void printfBookInfo()
 {
-    sBookDataType *tempBook = pLibrary;
+    sBookData_t *tempBook = pLibrary;
 
     if (tempBook == NULL)
     {
@@ -92,7 +92,7 @@ void printfBookInfo()
     }
 }
 
-void formatBook(sBookDataType *pBook)
+void formatBook(sBookData_t *pBook)
 {
     uint8_t temp = 0;
 
@@ -111,10 +111,10 @@ void formatBook(sBookDataType *pBook)
     }
 }
 
-void addBook(sBookDataType sampleBook)
+void addBook(sBookData_t sampleBook)
 {
-    sBookDataType *tempBook;
-    sBookDataType *curBookTail;
+    sBookData_t *tempBook;
+    sBookData_t *curBookTail;
     uint8_t temp;
     
     if (NULL != pLibrary)
@@ -127,7 +127,7 @@ void addBook(sBookDataType sampleBook)
         }
     }
 
-    tempBook = (sBookDataType *)malloc(sizeof(sBookDataType));
+    tempBook = (sBookData_t *)malloc(sizeof(sBookData_t));
     /* printf("tempBook = %p\n", *tempBook); */
 
     *tempBook = sampleBook;
@@ -150,8 +150,8 @@ void addBook(sBookDataType sampleBook)
 
 void delBook()
 {
-    sBookDataType *tempBook;
-    sBookDataType *prevBook = NULL;
+    sBookData_t *tempBook;
+    sBookData_t *prevBook = NULL;
     bool found = false;
     uint32_t id;
 
@@ -200,7 +200,7 @@ void delBook()
 
 bool isBookIdInList(const uint32_t id)
 {
-    sBookDataType *tempBook = pLibrary;
+    sBookData_t *tempBook = pLibrary;
     bool bRet = false;
 
     if (NULL != tempBook)
@@ -221,7 +221,7 @@ bool isBookIdInList(const uint32_t id)
     return bRet;
 }
 
-void editBookInfo(sBookDataType *pBook)
+void editBookInfo(sBookData_t *pBook)
 {
     uint8_t buff[0xFF];
 
@@ -270,7 +270,7 @@ void editBookInfo(sBookDataType *pBook)
 
 void modifyBook()
 {
-    sBookDataType *tempBook;
+    sBookData_t *tempBook;
     uint32_t id;
 
 
@@ -313,9 +313,9 @@ void printBookSelAcc()
     printf("Please choose the action you want:\n");
 }
 
-eBookSelAccType bookSelectAcc()
+eBookSelAcc_t bookSelectAcc()
 {
-    eBookSelAccType eRet;
+    eBookSelAcc_t eRet;
     uint32_t tempChoice;
 
     tempChoice = getchar();
@@ -330,13 +330,13 @@ eBookSelAccType bookSelectAcc()
     }
     else
     {
-        eRet = (eBookSelAccType)tempChoice;
+        eRet = (eBookSelAcc_t)tempChoice;
     }
     /* printf("eRet = %d\n", eRet); */
     return eRet;
 }
 
-sBookDataType *getBookAdd()
+sBookData_t *getBookAdd()
 {
-    return (sBookDataType *)pLibrary;
+    return (sBookData_t *)pLibrary;
 }

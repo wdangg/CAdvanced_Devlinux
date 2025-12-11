@@ -1,8 +1,8 @@
 #include "Utils.h"
 
-sBookDataType getBookInput(void)
+sBookData_t getBookInput(void)
 {
-    sBookDataType sRet;
+    sBookData_t sRet;
     uint32_t id;
     uint8_t temp;
     uint8_t sTitle[TITLE_SIZE];
@@ -25,9 +25,9 @@ sBookDataType getBookInput(void)
     return sRet;
 }
 
-sUserDataType midGetUserInput()
+sUserData_t midGetUserInput()
 {
-    sUserDataType sRet;
+    sUserData_t sRet;
     uint32_t id;
     uint8_t temp;
     uint8_t strName[USER_NAME_SIZE];
@@ -53,8 +53,8 @@ void trimNewline(char *str)
 
 void midBookMana()
 {
-    sBookDataType tempBook;
-    eBookSelAccType eBookSelAcc;
+    sBookData_t tempBook;
+    eBookSelAcc_t eBookSelAcc;
 
     /* init some book for test */
     /* initLibraryForTest(); */
@@ -80,8 +80,8 @@ void midBookMana()
 
 void midUserMana()
 {
-    sUserDataType tempUser;
-    eUserSelAccType eUserSelAcc;
+    sUserData_t tempUser;
+    eUserSelAcc_t eUserSelAcc;
 
     
     /* init some users for test */
@@ -117,7 +117,7 @@ void midPrintBooks()
 
 void midBorrRetMana()
 {
-    eBorrRetSelAccType eBorrRetSelAcc;
+    eBorrRetSelAcc_t eBorrRetSelAcc;
     /* init some users for test */
     /* initUserForTest(); */
     printBorrRetlAcc();

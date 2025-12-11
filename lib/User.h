@@ -15,15 +15,15 @@ typedef enum eUser
     USER_MODIFY,
     USER_PRINT,
     USER_INVALID_ACC
-} eUserSelAccType;
+} eUserSelAcc_t;
 
 typedef struct sUser
 {
-    eUserSelAccType id;
+    eUserSelAcc_t id;
     const char *msg;
-} sUserSelAccType;
+} sUserSelAcc_t;
 
-static const sUserSelAccType sUserSelAcc[] = {
+static const sUserSelAcc_t sUserSelAcc[] = {
     {USER_ADD,          "Add an user"},
     {BOOK_DEL,          "Delete an user"},
     {BOOK_MODIFY_INFO,  "Modify user infomation"},
@@ -35,9 +35,9 @@ typedef struct sUserInfo
     /* data */
     uint32_t id;
     uint8_t name[USER_NAME_SIZE];
-    sBookDataType *pBookBorrowed[USER_MAX_BOOK_CAN_BORROW];
+    sBookData_t *pBookBorrowed[USER_MAX_BOOK_CAN_BORROW];
     struct sUserInfo *pNextUser;
-} sUserDataType;
+} sUserData_t;
 
 /**
  * @brief  get user choice from keyboard
@@ -47,7 +47,7 @@ void printUserlAcc();
 /**
  * @brief  get user choice from keyboard
  */
-eUserSelAccType userSelectAcc();
+eUserSelAcc_t userSelectAcc();
 
 /**
  * @brief  get user choice from keyboard
@@ -57,7 +57,7 @@ void printUserInfo();
 /**
  * @brief  get user choice from keyboard
  */
-void addUser(sUserDataType sampleUser);
+void addUser(sUserData_t sampleUser);
 
 /**
  * @brief  get user choice from keyboard
@@ -72,12 +72,12 @@ void modifyUser();
 /**
  * @brief  get user choice from keyboard
  */
-void formatUser(sUserDataType *sampleUser);
+void formatUser(sUserData_t *sampleUser);
 
 /**
  * @brief  get user choice from keyboard
  */
-uint32_t countBookBorrowed(sUserDataType *sampleUser);
+uint32_t countBookBorrowed(sUserData_t *sampleUser);
 
 /**
  * @brief  get user choice from keyboard
@@ -87,11 +87,11 @@ bool isUserIdInList(const uint32_t id);
 /**
  * @brief  get user choice from keyboard
  */
-void editUserInfo(sUserDataType *sampleUser);
+void editUserInfo(sUserData_t *sampleUser);
 
 /**
  * @brief  get user choice from keyboard
  */
-sUserDataType *getUserAdd();
+sUserData_t *getUserAdd();
 
 #endif /* _USER_H_ */

@@ -18,15 +18,15 @@ typedef enum LibMana
     LIB_FIND_BOOK,
     LIB_PRINT_BOOKS,
     LIB_INVALID_CHOICE
-} eLibManaType;
+} eLibMana_t;
 
 typedef struct MenuList
 {
-    eLibManaType id;
+    eLibMana_t id;
     const char *msg;
-} sMenuListType;
+} sMenuList_t;
 
-static const sMenuListType sMenuList[] = {
+static const sMenuList_t sMenuList[] = {
     {LIB_EXIT,                   "Exit"},
     {LIB_BOOK_INFO_MANA,         "Book infomation management"},
     {LIB_USER_MANA,              "User management"},
@@ -48,6 +48,6 @@ void printAppInfo(void);
 /**
  * @brief  get user choice from keyboard
  */
-eLibManaType getUserChoice(void);
+eLibMana_t getUserChoice(void);
 
 #endif /* _APP_H_ */

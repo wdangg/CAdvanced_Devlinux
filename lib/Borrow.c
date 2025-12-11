@@ -11,9 +11,9 @@ void printBorrRetlAcc()
     printf("Please choose the action you want:\n");
 }
 
-eBorrRetSelAccType borrRetSelectAcc()
+eBorrRetSelAcc_t borrRetSelectAcc()
 {
-    eBorrRetSelAccType eRet;
+    eBorrRetSelAcc_t eRet;
     uint32_t tempChoice;
 
     tempChoice = getchar();
@@ -28,7 +28,7 @@ eBorrRetSelAccType borrRetSelectAcc()
     }
     else
     {
-        eRet = (eBorrRetSelAccType)tempChoice;
+        eRet = (eBorrRetSelAcc_t)tempChoice;
     }
     printf("eRet = %d\n", eRet);
     return eRet;
