@@ -75,24 +75,8 @@ void addUser(sUserData_t sampleUser)
 
     bool isExist = false;
 
-    /* ==========================
-       Check if user already exist
-       ========================== */
-    while (NULL != checker)
-    {
-        if (0 == strcmp((char*)checker->name, (char*)sampleUser.name))
-        {
-            isExist = true;
-        }
-        if (NULL != checker->pNextUser)
-        {
-            checker = checker->pNextUser;
-        }
-        else
-        {
-            checker = NULL;
-        }
-    }
+    /* Check if user already exist */
+    isExist = isUserInSys(sampleUser);
 
     if (true == isExist)
     {
@@ -101,10 +85,6 @@ void addUser(sUserData_t sampleUser)
     }
     else
     {
-        /* ==========================
-                ADD NEW USER
-           ========================== */
-
         /* Find tail */
         if (NULL != curUserTail)
         {
@@ -311,4 +291,81 @@ void editUserInfo(sUserData_t *sampleUser)
 sUserData_t *getUserAdd()
 {
     return (sUserData_t *)pUser;
+}
+
+void freeUser(sUserData_t **sampleUser)
+{
+    if (NULL != *sampleUser)
+    {
+        free(*sampleUser);
+        *sampleUser = NULL;
+    }
+}
+
+void initUserForTest(void)
+{
+    sUserData_t sampleUser;
+
+    /* user 1 */
+    /* sampleUser.id = 1; */
+    strcpy(sampleUser.name, "Nguyen Van An");
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        sampleUser.pBookBorrowed[i] = NULL;
+    }
+
+    sampleUser.pNextUser = NULL;
+    addUser(sampleUser);
+
+
+    /* user 2 */
+    /* sampleUser.id = 2; */
+    strcpy(sampleUser.name, "Tran Thi Bich");
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        sampleUser.pBookBorrowed[i] = NULL;
+    }
+
+    sampleUser.pNextUser = NULL;
+    addUser(sampleUser);
+
+
+    /* user 3 */
+    /* sampleUser.id = 3; */
+    strcpy(sampleUser.name, "Le Van Cuong");
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        sampleUser.pBookBorrowed[i] = NULL;
+    }
+
+    sampleUser.pNextUser = NULL;
+    addUser(sampleUser);
+}
+
+bool isUserInSys(sUserData_t sampleUser)
+{
+    bool retVal = false;
+    sUserData_t *tempUser = pUser;
+
+    if (NULL != tempUser)
+    {
+        while (NULL != tempUser)
+        {
+            if (0u == strcmp(sampleUser.name, tempUser->name))
+            {
+                retVal = true;
+                /* set tempUser to exit while loop, dont use break */
+                tempUser = NULL;
+            }
+            else
+            {
+                tempUser = tempUser->pNextUser;
+            }
+        }
+    }
+
+    return retVal;
 }

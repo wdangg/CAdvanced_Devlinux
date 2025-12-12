@@ -118,18 +118,18 @@ void PrintBooks()
 void BorrRetMana()
 {
     eBorrRetSelAcc_t eBorrRetSelAcc;
-    /* init some users for test */
-    /* initUserForTest(); */
+
     printBorrRetlAcc();
 
     eBorrRetSelAcc = borrRetSelectAcc();
     if (BORR_RET_BORROW == eBorrRetSelAcc)
     {
-        /* tempUser = GetUserInput();
-        addUser(tempUser); */
+        /* printf("BORR_RET_BORROW == eBorrRetSelAcc\n"); */
+        borrRetBook();
     }
     else if (BORR_RET_PIRNT == eBorrRetSelAcc)
     {
+        printf("BORR_RET_PIRNT == eBorrRetSelAcc\n");
         
     }
 }

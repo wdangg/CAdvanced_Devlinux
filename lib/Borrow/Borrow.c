@@ -30,6 +30,35 @@ eBorrRetSelAcc_t borrRetSelectAcc()
     {
         eRet = (eBorrRetSelAcc_t)tempChoice;
     }
-    printf("eRet = %d\n", eRet);
+    /* printf("eRet = %d\n", eRet); */
     return eRet;
+}
+
+void borrRetBook()
+{
+    sUserData_t *tempUser;
+    sBookData_t *tempBook;
+
+    initLibraryForTest();
+
+    tempUser = getUserAdd();
+
+    /* the user must sign up before borrow book */
+    if (NULL == tempUser)
+    {
+        printf("[ERROR] There is no user infomation, plese sign up to borrow\n");
+    }
+    else
+    {
+        tempBook = getBookAdd();
+        if (NULL == tempBook)
+        {
+            printf("[ERROR] There is no book in library, cannot borrow\n");
+        }
+        else
+        {
+            printUserInfo();
+
+        }
+    }
 }

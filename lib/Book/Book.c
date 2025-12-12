@@ -2,57 +2,6 @@
 
 static sBookData_t *pLibrary = NULL;
 
-static sBookData_t sample_1 = {
-    .id = 1,
-    .title = "De Men Phieu Luu Ky",
-    .author = "To Hoai",
-    .status = BOOK_STATUS_AVAILABLE,
-    .pNextBook = NULL
-};
-
-static sBookData_t sample_2 = {
-    .id = 2,
-    .title = "Tat Den",
-    .author = "Ngo Tat To",
-    .status = BOOK_STATUS_AVAILABLE,
-    .pNextBook = NULL
-};
-
-static sBookData_t sample_3 = {
-    .id = 3,
-    .title = "Lao Hac",
-    .author = "Nam Cao",
-    .status = BOOK_STATUS_BORROWED,
-    .pNextBook = NULL
-};
-
-static sBookData_t sample_4 = {
-    .id = 4,
-    .title = "Vo Nhat",
-    .author = "Kim Lan",
-    .status = BOOK_STATUS_AVAILABLE,
-    .pNextBook = NULL
-};
-
-static sBookData_t sample_5 = {
-    .id = 5,
-    .title = "Tuyen Kieu",
-    .author = "Nguyen Du",
-    .status = BOOK_STATUS_AVAILABLE,
-    .pNextBook = NULL
-};
-
-void initLibraryForTest(void)
-{
-    sample_1.pNextBook = &sample_2;
-    sample_2.pNextBook = &sample_3;
-    sample_3.pNextBook = &sample_4;
-    sample_4.pNextBook = &sample_5;
-    sample_5.pNextBook = NULL;
-
-    pLibrary = &sample_1;
-}
-
 void clearStdinBuff(void)
 {
     int c;
@@ -76,7 +25,7 @@ void printfBookInfo()
         printf("| %-2s | %-25s | %-25s | %-10s |\n",
                "ID", "TITLE", "AUTHOR", "STATUS");
         printf("------------------------------------------------------------------------------------\n");
-    
+
         while (tempBook != NULL)
         {
             printf("| %-2d | %-25s | %-25s | %-10s |\n",
@@ -84,10 +33,10 @@ void printfBookInfo()
                    tempBook->title,
                    tempBook->author,
                    (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
-    
+
             tempBook = tempBook->pNextBook;
         }
-    
+
         printf("====================================================================================\n");
     }
 }
@@ -116,36 +65,41 @@ void addBook(sBookData_t sampleBook)
     sBookData_t *tempBook;
     sBookData_t *curBookTail;
     uint8_t temp;
-    
-    if (NULL != pLibrary)
+    bool isBookExist = false;
+
+    isBookExist = isBookInLib(sampleBook);
+
+    if (false == isBookExist)
     {
-        curBookTail = pLibrary;
-        while (NULL != (curBookTail->pNextBook))
+        if (NULL != pLibrary)
         {
-            curBookTail = curBookTail->pNextBook;
-            /* code */
+            curBookTail = pLibrary;
+            while (NULL != (curBookTail->pNextBook))
+            {
+                curBookTail = curBookTail->pNextBook;
+            }
         }
+    
+        tempBook = (sBookData_t *)malloc(sizeof(sBookData_t));
+        /* printf("tempBook = %p\n", *tempBook); */
+    
+        *tempBook = sampleBook;
+    
+        if (NULL == pLibrary)
+        {
+            pLibrary = tempBook;
+            tempBook->id = 0u;
+        }
+        else
+        {
+            tempBook->id = ((curBookTail->id) + 1u);
+            curBookTail->pNextBook = tempBook;
+        }
+    
+        tempBook->status = BOOK_STATUS_AVAILABLE;
+        tempBook->pNextBook = NULL;
+        /* printfBookInfo(tempBook); */
     }
-
-    tempBook = (sBookData_t *)malloc(sizeof(sBookData_t));
-    /* printf("tempBook = %p\n", *tempBook); */
-
-    *tempBook = sampleBook;
-
-    if (NULL == pLibrary)
-    {
-        pLibrary = tempBook;
-        tempBook->id = 0u;
-    }
-    else
-    {
-        tempBook->id = ((curBookTail->id) + 1u);
-        curBookTail->pNextBook = tempBook;
-    }
-
-    tempBook->status = BOOK_STATUS_AVAILABLE;
-    tempBook->pNextBook = NULL;
-    /* printfBookInfo(tempBook); */
 }
 
 void delBook()
@@ -169,7 +123,7 @@ void delBook()
             if (id == (tempBook->id))
             {
                 pLibrary = tempBook->pNextBook;
-                free(tempBook);
+                freeBook(&tempBook);
                 printf("found book id, can deleteeeeeeeeee\n");
             }
             else
@@ -188,7 +142,7 @@ void delBook()
                 {
                     prevBook->pNextBook = tempBook->pNextBook;
                 }
-                free(tempBook);
+                freeBook(&tempBook);
             }
         }
         else
@@ -221,6 +175,31 @@ bool isBookIdInList(const uint32_t id)
     return bRet;
 }
 
+bool isBookInLib(sBookData_t sampleBook)
+{
+    bool retVal = false;
+    sBookData_t *tempBook = pLibrary;
+
+    if (NULL != pLibrary)
+    {
+        while (NULL != tempBook)
+        {
+            if (0u == strcmp(sampleBook.title, tempBook->title))
+            {
+                retVal = true;
+                /* set tempBook to exit while loop, dont use break */
+                tempBook = NULL;
+            }
+            else
+            {
+                tempBook = tempBook->pNextBook;
+            }
+        }
+    }
+
+    return retVal;
+}
+
 void editBookInfo(sBookData_t *pBook)
 {
     uint8_t buff[0xFF];
@@ -231,28 +210,28 @@ void editBookInfo(sBookData_t *pBook)
 
     /* -------- Edit Title -------- */
     printf("Enter new title (Enter to skip): ");
-    fgets((char*)buff, sizeof(buff), stdin);
+    fgets((char *)buff, sizeof(buff), stdin);
 
-    buff[strcspn((char*)buff, "\n")] = 0;
+    buff[strcspn((char *)buff, "\n")] = 0;
 
     bool skipTitle = false;
 
-    if (strlen((char*)buff) == 0)
+    if (strlen((char *)buff) == 0)
     {
         skipTitle = true;
     }
     else
     {
-        strcpy((char*)pBook->title, (char*)buff);
+        strcpy((char *)pBook->title, (char *)buff);
     }
 
     /* -------- Edit Author -------- */
     printf("Enter new author (Enter to skip):");
 
-    fgets((char*)buff, sizeof(buff), stdin);
-    buff[strcspn((char*)buff, "\n")] = 0;
+    fgets((char *)buff, sizeof(buff), stdin);
+    buff[strcspn((char *)buff, "\n")] = 0;
 
-    if (strlen((char*)buff) == 0)
+    if (strlen((char *)buff) == 0)
     {
         if (skipTitle)
         {
@@ -263,7 +242,7 @@ void editBookInfo(sBookData_t *pBook)
     }
     else
     {
-        strcpy((char*)pBook->author, (char*)buff);
+        strcpy((char *)pBook->author, (char *)buff);
         printf("Both title and author updated.\n");
     }
 }
@@ -272,7 +251,6 @@ void modifyBook()
 {
     sBookData_t *tempBook;
     uint32_t id;
-
 
     if (NULL == pLibrary)
     {
@@ -305,7 +283,7 @@ void modifyBook()
 void printBookSelAcc()
 {
     printf("----------------------------------------------------------------\n");
-    for (uint8_t i = 0; i < sizeof(sBookSellAcc)/sizeof(sBookSellAcc[0]); i++)
+    for (uint8_t i = 0; i < sizeof(sBookSellAcc) / sizeof(sBookSellAcc[0]); i++)
     {
         printf("\t%d. %s\n", sBookSellAcc[i].id, sBookSellAcc[i].msg);
     }
@@ -339,4 +317,59 @@ eBookSelAcc_t bookSelectAcc()
 sBookData_t *getBookAdd()
 {
     return (sBookData_t *)pLibrary;
+}
+
+void freeBook(sBookData_t **pBook)
+{
+    if (NULL != *pBook)
+    {
+        free(*pBook);
+        *pBook = NULL;
+    }
+}
+
+void initLibraryForTest(void)
+{
+    sBookData_t sampleBook;
+
+    /* BOOK 1 */
+    /* sampleBook.id = 1; */
+    strcpy((char *)sampleBook.title, "De Men Phieu Luu Ky");
+    strcpy((char *)sampleBook.author, "To Hoai");
+    /* sampleBook.status = BOOK_STATUS_AVAILABLE;
+    sampleBook.pNextBook = NULL; */
+    addBook(sampleBook);
+
+    /* BOOK 2 */
+    /* sampleBook.id = 2; */
+    strcpy((char *)sampleBook.title, "Tat Den");
+    strcpy((char *)sampleBook.author, "Ngo Tat To");
+    /* sampleBook.status = BOOK_STATUS_AVAILABLE;
+    sampleBook.pNextBook = NULL; */
+    addBook(sampleBook);
+
+    /* BOOK 3  */
+    /* sampleBook.id = 3; */
+    strcpy((char *)sampleBook.title, "Lao Hac");
+    strcpy((char *)sampleBook.author, "Nam Cao");
+    /* sampleBook.status = BOOK_STATUS_BORROWED;
+    sampleBook.pNextBook = NULL; */
+    addBook(sampleBook);
+
+    /* BOOK 4  */
+    /* sampleBook.id = 4; */
+    strcpy((char *)sampleBook.title, "Vo Nhat");
+    strcpy((char *)sampleBook.author, "Kim Lan");
+    /* sampleBook.status = BOOK_STATUS_AVAILABLE;
+    sampleBook.pNextBook = NULL; */
+    addBook(sampleBook);
+
+    /*  BOOK 5  */
+    /* sampleBook.id = 5; */
+    strcpy((char *)sampleBook.title, "Truyen Kieu");
+    strcpy((char *)sampleBook.author, "Nguyen Du");
+    /* sampleBook.status = BOOK_STATUS_AVAILABLE;
+    sampleBook.pNextBook = NULL; */
+    addBook(sampleBook);
+
 }

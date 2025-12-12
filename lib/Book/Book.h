@@ -103,11 +103,26 @@ bool isBookIdInList(const uint32_t id);
 /**
  * @brief  get user choice from keyboard
  */
+bool isBookInLib(sBookData_t sampleBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
 uint32_t getIdInput();
 
 /**
  * @brief  get user choice from keyboard
  */
 sBookData_t *getBookAdd();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void freeBook(sBookData_t **pBook);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void initLibraryForTest(void);
 
 #endif /* _BOOK_H_ */

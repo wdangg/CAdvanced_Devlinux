@@ -20,7 +20,7 @@ typedef struct sBorr
 } sBorrRetSelAcc_t;
 
 static const sBorrRetSelAcc_t sBorrRetSelAcc[] = {
-    {BORR_RET_BORROW,       "Add an user"},
+    {BORR_RET_BORROW,       "Borrow a book"},
     {BORR_RET_PIRNT,        "Print all book status"},
 };
 
@@ -33,5 +33,10 @@ void printBorrRetlAcc();
  * @brief  get user choice from keyboard
  */
 eBorrRetSelAcc_t borrRetSelectAcc();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void borrRetBook();
 
 #endif/* _BORROW_H_ */

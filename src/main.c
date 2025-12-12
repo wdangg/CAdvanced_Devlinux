@@ -3,7 +3,11 @@
 int main(void)
 {
     eLibMana_t inputUser = 0;
-    
+
+    /* init some book, users for test */
+    initLibraryForTest();
+    initUserForTest();
+
     printf("[INFO] Start the program\n");
     do
     {
@@ -22,12 +26,13 @@ int main(void)
         }
         else if (LIB_BORR_RET_MANA == inputUser)
         {
-            printf("[LIB_MANA] Borrow - Return books management\n");
+            /* printf("[LIB_MANA] Borrow - Return books management\n"); */
             BorrRetMana();
         }
         else if (LIB_FIND_BOOK == inputUser)
         {
             printf("[LIB_MANA] Find a book\n");
+
         }
         else if (LIB_PRINT_BOOKS == inputUser)
         {

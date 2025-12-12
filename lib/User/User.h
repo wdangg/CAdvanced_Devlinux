@@ -94,4 +94,19 @@ void editUserInfo(sUserData_t *sampleUser);
  */
 sUserData_t *getUserAdd();
 
+/**
+ * @brief  get user choice from keyboard
+ */
+void freeUser(sUserData_t **sampleUser);
+
+/**
+ * @brief  get user choice from keyboard
+ */
+void initUserForTest();
+
+/**
+ * @brief  get user choice from keyboard
+ */
+bool isUserInSys(sUserData_t sampleUser);
+
 #endif /* _USER_H_ */

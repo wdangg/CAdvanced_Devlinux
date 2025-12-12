@@ -1,6 +1,7 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+#include "Common.h"
 #include "Book.h"
 #include "User.h"
 #include "Borrow.h"
