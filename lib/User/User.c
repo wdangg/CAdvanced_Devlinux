@@ -278,14 +278,14 @@ void editUserInfo(sUserData_t *sampleUser)
 
     buff[strcspn((char*)buff, "\n")] = 0;
 
-    if (strlen((char*)buff) == 0)
+    if (0u == strlen((char*)buff))
     {
-        printf("No changes were made.\n");
+        printf("[INFO] No changes were made.\n");
         return;
     }
 
     strcpy((char*)sampleUser->name, (char*)buff);
-    printf("User name updated successfully!\n");
+    printf("[INFO] User name updated successfully!\n");
 }
 
 sUserData_t *getUserAdd()

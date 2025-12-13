@@ -46,7 +46,7 @@ void borrRetBook()
     /* the user must sign up before borrow book */
     if (NULL == tempUser)
     {
-        printf("[ERROR] There is no user infomation, plese sign up to borrow\n");
+        printf("[ERROR] There is no user information, please sign up to borrow\n");
     }
     else
     {
