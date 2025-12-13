@@ -2,6 +2,7 @@
 #define _USER_H_
 
 #include "Book.h"
+#include "Log.h"
 
 #define USER_NAME_SIZE 30u
 #define USER_MAX_BOOK_CAN_BORROW 2u

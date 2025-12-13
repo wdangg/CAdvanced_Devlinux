@@ -8,7 +8,7 @@ void printBorrRetlAcc()
         printf("\t%d. %s\n", sBorrRetSelAcc[i].id, sBorrRetSelAcc[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:\n");
+    printf("Please choose the action you want:");
 }
 
 eBorrRetSelAcc_t borrRetSelectAcc()
@@ -18,7 +18,7 @@ eBorrRetSelAcc_t borrRetSelectAcc()
 
     tempChoice = getchar();
     tempChoice = BORR_RET_CHAR_TO_NUM(tempChoice);
-    /* printf("tempChoice = %d\n", tempChoice); */
+    /* LOG_PRINT("tempChoice = %d\n", tempChoice); */
 
     getchar(); /* clear stdin, there is a newline character still here */
 
@@ -30,7 +30,7 @@ eBorrRetSelAcc_t borrRetSelectAcc()
     {
         eRet = (eBorrRetSelAcc_t)tempChoice;
     }
-    /* printf("eRet = %d\n", eRet); */
+    /* LOG_PRINT("eRet = %d\n", eRet); */
     return eRet;
 }
 
@@ -46,14 +46,14 @@ void borrRetBook()
     /* the user must sign up before borrow book */
     if (NULL == tempUser)
     {
-        printf("[ERROR] There is no user information, please sign up to borrow\n");
+        LOG_ERROR("There is no user information, please sign up to borrow");
     }
     else
     {
         tempBook = getBookAdd();
         if (NULL == tempBook)
         {
-            printf("[ERROR] There is no book in library, cannot borrow\n");
+            LOG_ERROR("There is no book in library, cannot borrow");
         }
         else
         {

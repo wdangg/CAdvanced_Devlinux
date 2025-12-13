@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "Log.h"
 
 #define TITLE_SIZE 50
 #define AUTHOR_SIZE 50

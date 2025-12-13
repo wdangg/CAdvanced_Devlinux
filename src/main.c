@@ -8,7 +8,7 @@ int main(void)
     initLibraryForTest();
     initUserForTest();
 
-    printf("[INFO] Start the program\n");
+    LOG_INFO("Start the program");
     do
     {
         printAppInfo();
@@ -16,37 +16,37 @@ int main(void)
 
         if (LIB_BOOK_INFO_MANA == inputUser)
         {
-            /* printf("[LIB_MANA] Library management\n"); */
+            /* LOG_PRINT("[LIB_MANA] Library management"); */
             BookMana();
         }
         else if (LIB_USER_MANA == inputUser)
         {
-            /* printf("[LIB_MANA] User management\n"); */
+            /* LOG_PRINT("[LIB_MANA] User management"); */
             UserMana();
         }
         else if (LIB_BORR_RET_MANA == inputUser)
         {
-            /* printf("[LIB_MANA] Borrow - Return books management\n"); */
+            /* LOG_PRINT("[LIB_MANA] Borrow - Return books management"); */
             BorrRetMana();
         }
         else if (LIB_FIND_BOOK == inputUser)
         {
-            printf("[LIB_MANA] Find a book\n");
+            LOG_PRINT("[LIB_MANA] Find a book");
 
         }
         else if (LIB_PRINT_BOOKS == inputUser)
         {
-            /* printf("[LIB_MANA] Prinf all books infomation\n"); */
+            /* LOG_PRINT("[LIB_MANA] Prinf all books infomation"); */
             PrintBooks();
         }
         else if (LIB_EXIT == inputUser)
         {
-            printf("[EXIT] Exit the program\n");
+            LOG_PRINT("[EXIT] Exit the program");
         }
     } while (LIB_EXIT != inputUser);
 
-    /* printf("[INFO] App layer\n"); */
-    printf("[INFO] Done\n");
+    /* LOG_INFO("App layer"); */
+    LOG_INFO("Done");
 }
 
 eLibMana_t getUserChoice(void)
@@ -56,7 +56,7 @@ eLibMana_t getUserChoice(void)
 
     tempChoice = getchar();
     tempChoice = LIB_CHAR_TO_NUM(tempChoice);
-    /* printf("tempChoice = %d\n", tempChoice); */
+    /* LOG_PRINT("tempChoice = %d\n", tempChoice); */
 
     getchar(); /* clear stdin, there is a newline character still here */
 
@@ -69,7 +69,7 @@ eLibMana_t getUserChoice(void)
         userChoice = (eLibMana_t)tempChoice;
     }
 
-    /* printf("userChoice = %d\n", userChoice);  */
+    /* LOG_PRINT("userChoice = %d\n", userChoice);  */
     return userChoice;
 }
 
@@ -81,5 +81,5 @@ void printAppInfo(void)
         printf("\t%d. %s\n", sMenuList[i].id, sMenuList[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:\n");
+    printf("Please choose the action you want:");
 }

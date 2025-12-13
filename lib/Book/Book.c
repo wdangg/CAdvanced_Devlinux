@@ -17,7 +17,7 @@ void printfBookInfo()
 
     if (tempBook == NULL)
     {
-        printf("There is no book in library.\n");
+        LOG_PRINT("There is no book in library.");
     }
     else
     {
@@ -81,7 +81,7 @@ void addBook(sBookData_t sampleBook)
         }
     
         tempBook = (sBookData_t *)malloc(sizeof(sBookData_t));
-        /* printf("tempBook = %p\n", *tempBook); */
+        /* LOG_PRINT("tempBook = %p\n", *tempBook); */
     
         *tempBook = sampleBook;
     
@@ -111,11 +111,11 @@ void delBook()
 
     if (pLibrary == NULL)
     {
-        printf("[ERROR] There is no book to delete\n");
+        LOG_ERROR("There is no book to delete");
     }
     else
     {
-        printf("[BOOK] Enter the book id you wanna delete:\n");
+        LOG_PRINT("[BOOK] Enter the book id you wanna delete:");
         id = getIdInput();
         tempBook = pLibrary;
         if (true == isBookIdInList(id))
@@ -124,7 +124,7 @@ void delBook()
             {
                 pLibrary = tempBook->pNextBook;
                 freeBook(&tempBook);
-                printf("found book id, can deleteeeeeeeeee\n");
+                LOG_PRINT("found book id, can deleteeeeeeeeee");
             }
             else
             {
@@ -147,7 +147,7 @@ void delBook()
         }
         else
         {
-            printf("[ERROR] Invalid id\n");
+            LOG_ERROR("Invalid id");
         }
     }
 }
@@ -170,7 +170,7 @@ bool isBookIdInList(const uint32_t id)
     }
     else
     {
-        printf("[ERROR] isBookIdInList\n");
+        LOG_ERROR("isBookIdInList");
     }
     return bRet;
 }
@@ -204,12 +204,12 @@ void editBookInfo(sBookData_t *pBook)
 {
     uint8_t buff[0xFF];
 
-    printf("=== EDIT BOOK INFO ===\n");
-    printf("Current title : %s\n", pBook->title);
-    printf("Current author: %s\n", pBook->author);
+    LOG_PRINT("=== EDIT BOOK INFO ===");
+    LOG_PRINT("Current title : %s\n", pBook->title);
+    LOG_PRINT("Current author: %s\n", pBook->author);
 
     /* -------- Edit Title -------- */
-    printf("Enter new title (Enter to skip): ");
+    LOG_PRINT("Enter new title (Enter to skip): ");
     fgets((char *)buff, sizeof(buff), stdin);
 
     buff[strcspn((char *)buff, "\n")] = 0;
@@ -226,7 +226,7 @@ void editBookInfo(sBookData_t *pBook)
     }
 
     /* -------- Edit Author -------- */
-    printf("Enter new author (Enter to skip):");
+    LOG_PRINT("Enter new author (Enter to skip):");
 
     fgets((char *)buff, sizeof(buff), stdin);
     buff[strcspn((char *)buff, "\n")] = 0;
@@ -235,15 +235,15 @@ void editBookInfo(sBookData_t *pBook)
     {
         if (skipTitle)
         {
-            printf("No changes were made.\n");
+            LOG_INFO("No changes were made");
             return;
         }
-        printf("Only title was updated.\n");
+        LOG_INFO("Only title was updated.");
     }
     else
     {
         strcpy((char *)pBook->author, (char *)buff);
-        printf("Both title and author updated.\n");
+        LOG_INFO("Both title and author updated.");
     }
 }
 
@@ -254,16 +254,16 @@ void modifyBook()
 
     if (NULL == pLibrary)
     {
-        printf("[ERROR] There is no book, cannot modify\n");
+        LOG_ERROR("There is no book, cannot modify");
     }
     else
     {
-        printf("[BOOK] Enter the book id you wanna modify:\n");
+        LOG_PRINT("[BOOK] Enter the book id you wanna modify:");
         id = getIdInput();
         tempBook = pLibrary;
         if (true == isBookIdInList(id))
         {
-            /* printf("found book id, can modify\n"); */
+            /* LOG_PRINT("found book id, can modify"); */
             if (id != (tempBook->id))
             {
                 while (id != tempBook->id)
@@ -275,7 +275,7 @@ void modifyBook()
         }
         else
         {
-            printf("[ERROR] Invalid book id\n");
+            LOG_ERROR("Invalid book id");
         }
     }
 }
@@ -288,7 +288,7 @@ void printBookSelAcc()
         printf("\t%d. %s\n", sBookSellAcc[i].id, sBookSellAcc[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:\n");
+    printf("Please choose the action you want:");
 }
 
 eBookSelAcc_t bookSelectAcc()
@@ -298,7 +298,7 @@ eBookSelAcc_t bookSelectAcc()
 
     tempChoice = getchar();
     tempChoice = BOOK_CHAR_TO_NUM(tempChoice);
-    /* printf("tempChoice = %d\n", tempChoice); */
+    /* LOG_PRINT("tempChoice = %d\n", tempChoice); */
 
     getchar(); /* clear stdin, there is a newline character still here */
 
@@ -310,7 +310,7 @@ eBookSelAcc_t bookSelectAcc()
     {
         eRet = (eBookSelAcc_t)tempChoice;
     }
-    /* printf("eRet = %d\n", eRet); */
+    /* LOG_PRINT("eRet = %d\n", eRet); */
     return eRet;
 }
 

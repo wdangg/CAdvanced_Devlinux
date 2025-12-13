@@ -3,6 +3,7 @@
 
 #include "Book.h"
 #include "User.h"
+#include "Log.h"
 
 #define BORR_RET_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : BORR_RET_INVALID_ACC)
 

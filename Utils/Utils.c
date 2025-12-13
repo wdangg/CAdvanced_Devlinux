@@ -11,16 +11,16 @@ sBookData_t getBookInput(void)
     /* format the book before write data */
     formatBook(&sRet);
 
-    printf("Please text the book's title:\n");
+    LOG_PRINT("Please text the book's title:");
     fgets(sTitle, sizeof(sTitle), stdin);
     trimNewline(sTitle);
     strcpy(sRet.title, sTitle);
-    printf("sTile: %s\n", sTitle);
-    printf("Please text the book's author:\n");
+    LOG_PRINT("sTile: %s", sTitle);
+    LOG_PRINT("Please text the book's author:");
     fgets(sAuthor, sizeof(sAuthor), stdin);
     trimNewline(sAuthor);
     strcpy(sRet.author, sAuthor);
-    printf("sAuthor: %s\n", sAuthor);
+    LOG_PRINT("sAuthor: %s", sAuthor);
 
     return sRet;
 }
@@ -35,11 +35,11 @@ sUserData_t GetUserInput()
     /* format the user before write data */
     formatUser(&sRet);
 
-    printf("Please text the user name:\n");
+    LOG_PRINT("Please text the user name:");
     fgets(strName, sizeof(strName), stdin);
     trimNewline(strName);
     strcpy(sRet.name, strName);
-    printf("strName: %s\n", strName);
+    LOG_PRINT("strName: %s", strName);
 
     return sRet;
 }
@@ -124,12 +124,12 @@ void BorrRetMana()
     eBorrRetSelAcc = borrRetSelectAcc();
     if (BORR_RET_BORROW == eBorrRetSelAcc)
     {
-        /* printf("BORR_RET_BORROW == eBorrRetSelAcc\n"); */
+        /* LOG_PRINT("BORR_RET_BORROW == eBorrRetSelAcc"); */
         borrRetBook();
     }
     else if (BORR_RET_PIRNT == eBorrRetSelAcc)
     {
-        printf("BORR_RET_PIRNT == eBorrRetSelAcc\n");
+        LOG_PRINT("BORR_RET_PIRNT == eBorrRetSelAcc");
         
     }
 }

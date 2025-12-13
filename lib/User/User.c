@@ -10,7 +10,7 @@ void printUserlAcc()
         printf("\t%d. %s\n", sUserSelAcc[i].id, sUserSelAcc[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:\n");
+    printf("Please choose the action you want:");
 }
 
 eUserSelAcc_t userSelectAcc()
@@ -20,7 +20,7 @@ eUserSelAcc_t userSelectAcc()
 
     tempChoice = getchar();
     tempChoice = USER_CHAR_TO_NUM(tempChoice);
-    /* printf("tempChoice = %d\n", tempChoice); */
+    /* LOG_PRINT("tempChoice = %d\n", tempChoice); */
 
     getchar(); /* clear stdin, there is a newline character still here */
 
@@ -32,7 +32,7 @@ eUserSelAcc_t userSelectAcc()
     {
         eRet = (eUserSelAcc_t)tempChoice;
     }
-    /* printf("eRet = %d\n", eRet);  */
+    /* LOG_PRINT("eRet = %d\n", eRet);  */
     return eRet;
 }
 
@@ -43,7 +43,7 @@ void printUserInfo()
 
     if (tempUser == NULL)
     {
-        printf("There is no user in library.\n");
+        LOG_ERROR("There is no user in library.");
     }
     else
     {
@@ -80,7 +80,7 @@ void addUser(sUserData_t sampleUser)
 
     if (true == isExist)
     {
-        printf("[ERROR] User '%s' already exists. Cannot add this\n",
+        LOG_ERROR("User '%s' already exists. Cannot add this\n",
                sampleUser.name);
     }
     else
@@ -118,7 +118,7 @@ void addUser(sUserData_t sampleUser)
 
         tempUser->pNextUser = NULL;
 
-        printf("[INFO] User '%s' added successfully.\n", sampleUser.name);
+        LOG_INFO("User '%s' added successfully.\n", sampleUser.name);
     }
 }
 
@@ -164,11 +164,11 @@ void delUser()
 
     if (pUser == NULL)
     {
-        printf("[ERROR] There is no book to delete\n");
+        LOG_ERROR("There is no book to delete");
     }
     else
     {
-        printf("[BOOK] Enter the book id you wanna delete:\n");
+        LOG_PRINT("[BOOK] Enter the book id you wanna delete:");
         id = getIdInput();
         tempUser = pUser;
         if (true == isUserIdInList(id))
@@ -178,7 +178,7 @@ void delUser()
                 pUser = tempUser->pNextUser;
                 strcpy((char*)delBuff, (char*)tempUser->name);
                 free(tempUser);
-                printf("[INFO] Deleted user '%s' successfuly!\n", delBuff);
+                LOG_INFO("Deleted user '%s' successfuly!\n", delBuff);
             }
             else
             {
@@ -198,13 +198,13 @@ void delUser()
                 }
                 strcpy((char*)delBuff, (char*)tempUser->name);
                 free(tempUser);
-                printf("[INFO] Deleted user: %s\n", delBuff);
+                LOG_INFO("Deleted user: %s\n", delBuff);
             }
 
         }
         else
         {
-            printf("[ERROR] Invalid id\n");
+            LOG_ERROR("Invalid id");
         }
     }
 }
@@ -217,16 +217,16 @@ void modifyUser()
 
     if (NULL == pUser)
     {
-        printf("[ERROR] There is no user, cannot modify\n");
+        LOG_ERROR("There is no user, cannot modify");
     }
     else
     {
-        printf("[BOOK] Enter the user id you wanna modify:\n");
+        LOG_PRINT("[BOOK] Enter the user id you wanna modify:");
         id = getIdInput();
         tempUser = pUser;
         if (true == isUserIdInList(id))
         {
-            /* printf("found book id, can modify\n"); */
+            /* LOG_PRINT("found book id, can modify"); */
             if (id != (tempUser->id))
             {
                 while (id != tempUser->id)
@@ -238,7 +238,7 @@ void modifyUser()
         }
         else
         {
-            printf("[ERROR] Invalid user id\n");
+            LOG_ERROR("Invalid user id");
         }
     }
 }
@@ -261,7 +261,7 @@ bool isUserIdInList(const uint32_t id)
     }
     else
     {
-        printf("[ERROR] isUserIdInList\n");
+        LOG_ERROR("isUserIdInList");
     }
     return bRet;
 }
@@ -270,22 +270,22 @@ void editUserInfo(sUserData_t *sampleUser)
 {
     uint8_t buff[0xFF];
 
-    printf("=== EDIT USER INFO ===\n");
-    printf("Current name : %s\n", sampleUser->name);
+    LOG_PRINT("=== EDIT USER INFO ===");
+    LOG_PRINT("Current name : %s\n", sampleUser->name);
 
-    printf("Enter new name (Enter to skip): ");
+    LOG_PRINT("Enter new name (Enter to skip): ");
     fgets((char*)buff, sizeof(buff), stdin);
 
     buff[strcspn((char*)buff, "\n")] = 0;
 
     if (0u == strlen((char*)buff))
     {
-        printf("[INFO] No changes were made.\n");
+        LOG_INFO("No changes were made.");
         return;
     }
 
     strcpy((char*)sampleUser->name, (char*)buff);
-    printf("[INFO] User name updated successfully!\n");
+    LOG_INFO("User name updated successfully!");
 }
 
 sUserData_t *getUserAdd()
