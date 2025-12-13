@@ -81,5 +81,5 @@ void printAppInfo(void)
         printf("\t%d. %s\n", sMenuList[i].id, sMenuList[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:");
+    LOG_INFO("Please choose the action you want:");
 }

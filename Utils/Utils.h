@@ -55,6 +55,6 @@ void PrintBooks();
 /**
  * @brief  get user choice from keyboard
  */
-sUserData_t GetUserInput();
+sUserData_t getUserInput();
 
 #endif /* _UTILS_H_ */

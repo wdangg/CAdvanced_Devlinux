@@ -25,7 +25,7 @@ sBookData_t getBookInput(void)
     return sRet;
 }
 
-sUserData_t GetUserInput()
+sUserData_t getUserInput()
 {
     sUserData_t sRet;
     uint32_t id;
@@ -68,13 +68,17 @@ void BookMana()
     }
     else if (BOOK_DEL == eBookSelAcc)
     {
-        printfBookInfo();
+        printfBookInfo(BOOK_STATUS_ALL);
         delBook();
     }
     else if (BOOK_MODIFY_INFO == eBookSelAcc)
     {
-        printfBookInfo();
+        printfBookInfo(BOOK_STATUS_ALL);
         modifyBook();
+    }
+    else
+    {
+        LOG_ERROR("Invalid input, please follow the guide");
     }
 }
 
@@ -91,7 +95,7 @@ void UserMana()
     eUserSelAcc = userSelectAcc();
     if (USER_ADD == eUserSelAcc)
     {
-        tempUser = GetUserInput();
+        tempUser = getUserInput();
         addUser(tempUser);
     }
     else if (USER_DEL == eUserSelAcc)
@@ -112,7 +116,7 @@ void UserMana()
 
 void PrintBooks()
 {
-    printfBookInfo();
+    printfBookInfo(BOOK_STATUS_ALL);
 }
 
 void BorrRetMana()
@@ -121,11 +125,11 @@ void BorrRetMana()
 
     printBorrRetlAcc();
 
-    eBorrRetSelAcc = borrRetSelectAcc();
+    eBorrRetSelAcc = borrRetSelAcc();
     if (BORR_RET_BORROW == eBorrRetSelAcc)
     {
         /* LOG_PRINT("BORR_RET_BORROW == eBorrRetSelAcc"); */
-        borrRetBook();
+        borrRetBook(eBorrRetSelAcc);
     }
     else if (BORR_RET_PIRNT == eBorrRetSelAcc)
     {

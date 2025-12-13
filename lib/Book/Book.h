@@ -39,7 +39,7 @@ typedef enum
 {
     BOOK_STATUS_AVAILABLE = 0,
     BOOK_STATUS_BORROWED,
-    BOOK_STATUS_EMPTY
+    BOOK_STATUS_ALL
 } eBookStatus_t;
 
 typedef struct Book
@@ -61,7 +61,7 @@ void clearStdinBuff(void);
 /**
  * @brief  get user choice from keyboard
  */
-void printfBookInfo();
+void printfBookInfo(eBookStatus_t status);
 
 /**
  * @brief  get user choice from keyboard
@@ -101,7 +101,7 @@ void printBookSelAcc();
 /**
  * @brief  get user choice from keyboard
  */
-bool isBookIdInList(const uint32_t id);
+bool isBookIdInList(const uint32_t id, sBookData_t **tempBook, sBookData_t **prevBook);
 
 /**
  * @brief  get user choice from keyboard

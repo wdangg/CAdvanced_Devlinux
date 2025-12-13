@@ -11,7 +11,7 @@ void clearStdinBuff(void)
     }
 }
 
-void printfBookInfo()
+void printfBookInfo(eBookStatus_t status)
 {
     sBookData_t *tempBook = pLibrary;
 
@@ -28,12 +28,14 @@ void printfBookInfo()
 
         while (tempBook != NULL)
         {
-            printf("| %-2d | %-25s | %-25s | %-10s |\n",
-                   tempBook->id,
-                   tempBook->title,
-                   tempBook->author,
-                   (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
-
+            if ((status == tempBook->status) || (BOOK_STATUS_ALL ==  status))
+            {
+                printf("| %-2d | %-25s | %-25s | %-10s |\n",
+                       tempBook->id,
+                       tempBook->title,
+                       tempBook->author,
+                       (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
+            }
             tempBook = tempBook->pNextBook;
         }
 
@@ -56,7 +58,7 @@ void formatBook(sBookData_t *pBook)
         {
             pBook->author[temp] = 0;
         }
-        pBook->status = BOOK_STATUS_EMPTY;
+        pBook->status = BOOK_STATUS_AVAILABLE;
     }
 }
 
@@ -98,16 +100,16 @@ void addBook(sBookData_t sampleBook)
     
         tempBook->status = BOOK_STATUS_AVAILABLE;
         tempBook->pNextBook = NULL;
-        /* printfBookInfo(tempBook); */
     }
 }
 
 void delBook()
 {
-    sBookData_t *tempBook;
+    sBookData_t *tempBook = NULL;
     sBookData_t *prevBook = NULL;
     bool found = false;
     uint32_t id;
+    bool bookAvailabe = false;
 
     if (pLibrary == NULL)
     {
@@ -117,23 +119,15 @@ void delBook()
     {
         LOG_PRINT("[BOOK] Enter the book id you wanna delete:");
         id = getIdInput();
-        tempBook = pLibrary;
-        if (true == isBookIdInList(id))
+        if (true == isBookIdInList(id, &tempBook, &prevBook))
         {
-            if (id == (tempBook->id))
+            if (NULL == prevBook)
             {
                 pLibrary = tempBook->pNextBook;
                 freeBook(&tempBook);
-                LOG_PRINT("found book id, can deleteeeeeeeeee");
             }
             else
             {
-                while (id != tempBook->id)
-                {
-                    prevBook = tempBook;
-                    tempBook = tempBook->pNextBook;
-                }
-
                 if (NULL == tempBook->pNextBook)
                 {
                     prevBook->pNextBook = NULL;
@@ -144,6 +138,7 @@ void delBook()
                 }
                 freeBook(&tempBook);
             }
+            LOG_PRINT("Delete successfully!");
         }
         else
         {
@@ -152,25 +147,32 @@ void delBook()
     }
 }
 
-bool isBookIdInList(const uint32_t id)
+bool isBookIdInList(const uint32_t id, sBookData_t **tempBook, sBookData_t **prevBook)
 {
-    sBookData_t *tempBook = pLibrary;
+    sBookData_t *sampleBook = pLibrary;
     bool bRet = false;
 
-    if (NULL != tempBook)
+    if (NULL != sampleBook)
     {
-        while (NULL != tempBook)
+        while (NULL != sampleBook)
         {
-            if (id == tempBook->id)
+            if (id == sampleBook->id)
             {
+                *tempBook = sampleBook;
                 bRet = true;
+                /* set sampleBook = NULL to exit while loop */
+                sampleBook = (sBookData_t *)NULL;
             }
-            tempBook = tempBook->pNextBook;
+            else
+            {
+                *prevBook = sampleBook;
+                sampleBook = sampleBook->pNextBook;
+            }
         }
     }
     else
     {
-        LOG_ERROR("isBookIdInList");
+        LOG_ERROR("isUserIdInList");
     }
     return bRet;
 }
@@ -250,6 +252,7 @@ void editBookInfo(sBookData_t *pBook)
 void modifyBook()
 {
     sBookData_t *tempBook;
+    sBookData_t *prevBook;
     uint32_t id;
 
     if (NULL == pLibrary)
@@ -261,17 +264,17 @@ void modifyBook()
         LOG_PRINT("[BOOK] Enter the book id you wanna modify:");
         id = getIdInput();
         tempBook = pLibrary;
-        if (true == isBookIdInList(id))
+        if (true == isBookIdInList(id, &tempBook, &prevBook))
         {
             /* LOG_PRINT("found book id, can modify"); */
-            if (id != (tempBook->id))
+            if (NULL != tempBook)
             {
-                while (id != tempBook->id)
-                {
-                    tempBook = tempBook->pNextBook;
-                }
+                editBookInfo(tempBook);
             }
-            editBookInfo(tempBook);
+            else
+            {
+                LOG_ERROR("Invalid tempBook pointer, please recheck");
+            }
         }
         else
         {
@@ -288,7 +291,7 @@ void printBookSelAcc()
         printf("\t%d. %s\n", sBookSellAcc[i].id, sBookSellAcc[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:");
+    LOG_INFO("Please choose the action you want:");
 }
 
 eBookSelAcc_t bookSelectAcc()

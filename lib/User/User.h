@@ -83,7 +83,7 @@ uint32_t countBookBorrowed(sUserData_t *sampleUser);
 /**
  * @brief  get user choice from keyboard
  */
-bool isUserIdInList(const uint32_t id);
+bool isUserIdInList(const uint32_t id, sUserData_t **tempUser, sUserData_t **prevUser);
 
 /**
  * @brief  get user choice from keyboard

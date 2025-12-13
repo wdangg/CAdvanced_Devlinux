@@ -10,7 +10,7 @@ void printUserlAcc()
         printf("\t%d. %s\n", sUserSelAcc[i].id, sUserSelAcc[i].msg);
     }
     printf("----------------------------------------------------------------\n");
-    printf("Please choose the action you want:");
+    LOG_INFO("Please choose the action you want:");
 }
 
 eUserSelAcc_t userSelectAcc()
@@ -52,14 +52,13 @@ void printUserInfo()
                "ID", "NAME", "BORROWED");
         printf("------------------------------------------------------------------------------------\n");
     
-        while (tempUser != NULL)
+        while (NULL != tempUser)
         {
             totalBookBorrowed = countBookBorrowed(tempUser);
             printf("| %-2d | %-25s | %-25d |\n",
                    tempUser->id,
                    tempUser->name,
                    totalBookBorrowed);
-    
             tempUser = tempUser->pNextUser;
         }
     
@@ -170,24 +169,18 @@ void delUser()
     {
         LOG_PRINT("[BOOK] Enter the book id you wanna delete:");
         id = getIdInput();
-        tempUser = pUser;
-        if (true == isUserIdInList(id))
+
+        if (true == isUserIdInList(id, &tempUser, &prevUser))
         {
-            if (id == (tempUser->id))
+            if (NULL == prevUser)
             {
                 pUser = tempUser->pNextUser;
                 strcpy((char*)delBuff, (char*)tempUser->name);
-                free(tempUser);
+                freeUser(&tempUser);
                 LOG_INFO("Deleted user '%s' successfuly!\n", delBuff);
             }
             else
             {
-                while (id != tempUser->id)
-                {
-                    prevUser = tempUser;
-                    tempUser = tempUser->pNextUser;
-                }
-
                 if (NULL == tempUser->pNextUser)
                 {
                     prevUser->pNextUser = NULL;
@@ -197,7 +190,7 @@ void delUser()
                     prevUser->pNextUser = tempUser->pNextUser;
                 }
                 strcpy((char*)delBuff, (char*)tempUser->name);
-                free(tempUser);
+                freeUser(&tempUser);
                 LOG_INFO("Deleted user: %s\n", delBuff);
             }
 
@@ -212,6 +205,7 @@ void delUser()
 void modifyUser()
 {
     sUserData_t *tempUser;
+    sUserData_t *prevUser;
     uint32_t id;
 
 
@@ -223,17 +217,10 @@ void modifyUser()
     {
         LOG_PRINT("[BOOK] Enter the user id you wanna modify:");
         id = getIdInput();
-        tempUser = pUser;
-        if (true == isUserIdInList(id))
+
+        if (true == isUserIdInList(id, &tempUser, &prevUser))
         {
             /* LOG_PRINT("found book id, can modify"); */
-            if (id != (tempUser->id))
-            {
-                while (id != tempUser->id)
-                {
-                    tempUser = tempUser->pNextUser;
-                }
-            }
             editUserInfo(tempUser);
         }
         else
@@ -243,20 +230,27 @@ void modifyUser()
     }
 }
 
-bool isUserIdInList(const uint32_t id)
+bool isUserIdInList(const uint32_t id, sUserData_t **tempUser, sUserData_t **prevUser)
 {
-    sUserData_t *tempUser = pUser;
+    sUserData_t *sampleUser = pUser;
     bool bRet = false;
 
-    if (NULL != tempUser)
+    if (NULL != sampleUser)
     {
-        while (NULL != tempUser)
+        while (NULL != sampleUser)
         {
-            if (id == tempUser->id)
+            if (id == sampleUser->id)
             {
+                *tempUser = sampleUser;
                 bRet = true;
+                /* set sampleUser = NULL to exit while loop */
+                sampleUser = (sUserData_t *)NULL;
             }
-            tempUser = tempUser->pNextUser;
+            else
+            {
+                *prevUser = sampleUser;
+                sampleUser = sampleUser->pNextUser;
+            }
         }
     }
     else
