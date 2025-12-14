@@ -108,9 +108,9 @@ void userMana()
         printUserInfo();
         modifyUser();
     }
-    else if (USER_PRINT == eUserSelAcc)
+    else
     {
-        printUserInfo();
+        LOG_ERROR("Invalid input, please follow the guide");
     }
 }
 
@@ -127,15 +127,14 @@ void borrRetMana()
 
     eBorrRetSelAcc = borrRetSelAcc();
     /* LOG_PRINT("eBorrRetSelAcc ================= %d", eBorrRetSelAcc); */
-    if (BORR_RET_BORROW == eBorrRetSelAcc)
+    if ((BORR_RET_BORROW == eBorrRetSelAcc) || (BORR_RET_RETURN == eBorrRetSelAcc))
     {
         /* LOG_PRINT("BORR_RET_BORROW == eBorrRetSelAcc"); */
         borrRetBook(eBorrRetSelAcc);
     }
-    else if (BORR_RET_RETURN == eBorrRetSelAcc)
+    else
     {
-        /* LOG_PRINT("Return book selecteddddddddddddddddddddddd"); */
-        returnBook();
+        LOG_ERROR("Invalid input, please follow the guide");
     }
 }
 

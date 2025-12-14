@@ -15,26 +15,28 @@ void printfBookInfo(eBookStatus_t status)
 {
     sBookData_t *tempBook = pLibrary;
 
-    if (tempBook == NULL)
+    if (NULL == tempBook)
     {
         LOG_PRINT("There is no book in library.");
     }
     else
     {
         printf("====================================================================================\n");
-        printf("| %-2s | %-25s | %-25s | %-10s |\n",
-               "ID", "TITLE", "AUTHOR", "STATUS");
-        printf("------------------------------------------------------------------------------------\n");
+    printf("| %-2s | %-25s | %-25s | %-10s | %-25s |\n",
+           "ID", "TITLE", "AUTHOR", "STATUS", "BORROWER");
+    printf("------------------------------------------------------------------------------------\n");
 
-        while (tempBook != NULL)
+        while (NULL != tempBook)
         {
             if ((status == tempBook->status) || (BOOK_STATUS_ALL ==  status))
             {
-                printf("| %-2d | %-25s | %-25s | %-10s |\n",
+                const char *borrower = (tempBook->userBorrow[0] != 0) ? (char *)tempBook->userBorrow : "-";
+                printf("| %-2d | %-25s | %-25s | %-10s | %-25s |\n",
                        tempBook->id,
                        tempBook->title,
                        tempBook->author,
-                       (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
+                       (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed",
+                       borrower);
             }
             tempBook = tempBook->pNextBook;
         }
@@ -100,6 +102,11 @@ void addBook(sBookData_t sampleBook)
     
         tempBook->status = BOOK_STATUS_AVAILABLE;
         tempBook->pNextBook = NULL;
+        LOG_INFO("Book '%s' added successfully.", sampleBook.title);
+    }
+    else
+    {
+        LOG_ERROR("This book is already in library, cannot add duplicate");
     }
 }
 
@@ -111,7 +118,7 @@ void delBook()
     uint32_t id;
     bool bookAvailabe = false;
 
-    if (pLibrary == NULL)
+    if (NULL == pLibrary)
     {
         LOG_ERROR("There is no book to delete");
     }
@@ -218,7 +225,7 @@ void editBookInfo(sBookData_t *pBook)
 
     bool skipTitle = false;
 
-    if (strlen((char *)buff) == 0)
+    if (0 == strlen((char *)buff))
     {
         skipTitle = true;
     }
@@ -233,7 +240,7 @@ void editBookInfo(sBookData_t *pBook)
     fgets((char *)buff, sizeof(buff), stdin);
     buff[strcspn((char *)buff, "\n")] = 0;
 
-    if (strlen((char *)buff) == 0)
+    if (0 == strlen((char *)buff))
     {
         if (skipTitle)
         {

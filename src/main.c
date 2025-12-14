@@ -31,7 +31,7 @@ int main(void)
         }
         else if (LIB_FIND_BOOK == inputUser)
         {
-            LOG_PRINT("[LIB_MANA] Find a book");
+            /* LOG_PRINT("[LIB_MANA] Find a book"); */
 
         }
         else if (LIB_PRINT_BOOKS == inputUser)
@@ -41,7 +41,7 @@ int main(void)
         }
         else if (LIB_PRINT_USERS == inputUser)
         {
-            LOG_PRINT("[LIB_MANA] Prinf all users infomation");
+            /* LOG_PRINT("[LIB_MANA] Prinf all users infomation"); */
             printUserInfo();
         }
         else if (LIB_EXIT == inputUser)

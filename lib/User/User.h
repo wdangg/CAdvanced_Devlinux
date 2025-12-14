@@ -4,7 +4,7 @@
 #include "Book.h"
 #include "Log.h"
 
-#define USER_MAX_BOOK_CAN_BORROW 2u
+#define USER_MAX_BOOK_CAN_BORROW 3u
 
 #define USER_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : USER_INVALID_ACC)
 
@@ -13,7 +13,6 @@ typedef enum eUser
     USER_ADD,
     USER_DEL,
     USER_MODIFY,
-    USER_PRINT,
     USER_INVALID_ACC
 } eUserSelAcc_t;
 
@@ -27,7 +26,6 @@ static const sUserSelAcc_t sUserSelAcc[] = {
     {USER_ADD,          "Add an user"},
     {BOOK_DEL,          "Delete an user"},
     {BOOK_MODIFY_INFO,  "Modify user infomation"},
-    {USER_PRINT,        "Print all users infomation"},
 };
 
 typedef struct sUserInfo

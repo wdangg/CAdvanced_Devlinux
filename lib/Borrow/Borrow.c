@@ -161,64 +161,74 @@ void returnBook()
 
     if (NULL != tempUser)
     {
+        bool proceed = true;
         uint32_t printedUsers = printUsersWithBorrowedBooks();
         if (0u == printedUsers)
         {
             LOG_ERROR("No users have borrowed books, cannot return");
-            return;
+            proceed = false;
         }
 
-        LOG_INFO("Please choose user id you wanna return book: ");
-        id = getIdInput();
-
-        if (isUserIdInList(id, &tempUser, &prevUser))
+        if (proceed)
         {
-            if (0u != countBookBorrowed(tempUser))
-            {
-                uint32_t printedBooks = printBooksBorrowedByUser(tempUser);
-                if (0u == printedBooks)
-                {
-                    LOG_ERROR("Selected user has no borrowed books, cannot return");
-                    return;
-                }
+            LOG_INFO("Please choose user id you wanna return book: ");
+            id = getIdInput();
 
-                LOG_INFO("Please choose book id you wanna return: ");
-                id = getIdInput();
-                isBookIdExist = isBookIdInList(id, &tempBook, &prevBook);
-                if (true == isBookIdExist)
+            if (isUserIdInList(id, &tempUser, &prevUser))
+            {
+                if (0u != countBookBorrowed(tempUser))
                 {
-                    /* ensure the selected book belongs to this user */
-                    bool found = false;
-                    for (index = 0; index < USER_MAX_BOOK_CAN_BORROW; index++)
+                    uint32_t printedBooks = printBooksBorrowedByUser(tempUser);
+                    if (0u == printedBooks)
                     {
-                        if (tempBook == (tempUser->pBookBorrowed[index]))
-                        {
-                            tempBook->status = BOOK_STATUS_AVAILABLE;
-                            memset(tempBook->userBorrow, 0, sizeof(tempBook->userBorrow));
-                            tempUser->pBookBorrowed[index] = NULL;
-                            printUserInfo();
-                            found = true;
-                            break;
-                        }
+                        LOG_ERROR("Selected user has no borrowed books, cannot return");
+                        proceed = false;
                     }
-                    if (!found)
+
+                    if (proceed)
                     {
-                        LOG_ERROR("Selected book is not borrowed by chosen user");
+                        LOG_INFO("Please choose book id you wanna return: ");
+                        id = getIdInput();
+                        isBookIdExist = isBookIdInList(id, &tempBook, &prevBook);
+                        if (true == isBookIdExist)
+                        {
+                            /* ensure the selected book belongs to this user */
+                            bool found = false;
+                            for (index = 0; index < USER_MAX_BOOK_CAN_BORROW && (false == found); index++)
+                            {
+                                if (tempBook == (tempUser->pBookBorrowed[index]))
+                                {
+                                    tempBook->status = BOOK_STATUS_AVAILABLE;
+                                    memset(tempBook->userBorrow, 0, sizeof(tempBook->userBorrow));
+                                    tempUser->pBookBorrowed[index] = NULL;
+                                    found = true;
+                                }
+                            }
+
+                            if (found)
+                            {
+                                printUserInfo();
+                            }
+                            else
+                            {
+                                LOG_ERROR("Selected book is not borrowed by chosen user");
+                            }
+                        }
+                        else
+                        {
+                            LOG_ERROR("There is no book id in list, cannot process");
+                        }
                     }
                 }
                 else
                 {
-                    LOG_ERROR("There is no book id in list, cannot process");
+                    LOG_ERROR("User has not borrowed any book, cannot return");
                 }
             }
             else
             {
-                LOG_ERROR("User has not borrowed any book, cannot return");
+                LOG_ERROR("There is no user id in list, cannot process");
             }
-        }
-        else
-        {
-            LOG_ERROR("There is no user id in list, cannot process");
         }
     }
     else
