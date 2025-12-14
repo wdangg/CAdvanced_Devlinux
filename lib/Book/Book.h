@@ -59,7 +59,7 @@ typedef struct Book
 void clearStdinBuff(void);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  print book information on console
  */
 void printfBookInfo(eBookStatus_t status);
 
