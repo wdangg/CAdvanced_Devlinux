@@ -18,6 +18,7 @@ typedef enum LibMana
     LIB_BORR_RET_MANA,
     LIB_FIND_BOOK,
     LIB_PRINT_BOOKS,
+    LIB_PRINT_USERS,
     LIB_INVALID_CHOICE
 } eLibMana_t;
 
@@ -33,7 +34,8 @@ static const sMenuList_t sMenuList[] = {
     {LIB_USER_MANA,              "User management"},
     {LIB_BORR_RET_MANA,          "Book borrow management"},
     {LIB_FIND_BOOK,              "Find a book"},
-    {LIB_PRINT_BOOKS,            "Print all books"}
+    {LIB_PRINT_BOOKS,            "Print all books"},
+    {LIB_PRINT_USERS,            "Print all users"},
 };
 
 /**

@@ -32,25 +32,25 @@ void trimNewline(char *str);
  * @brief  remove the newline char when using fgets
  *
  */
-void BookMana();
+void bookMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void UserMana();
+void userMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void BorrRetMana();
+void borrRetMana();
 
 /**
  * @brief  remove the newline char when using fgets
  *
  */
-void PrintBooks();
+void printBooks();
 
 /**
  * @brief  get user choice from keyboard

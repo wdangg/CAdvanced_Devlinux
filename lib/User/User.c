@@ -141,15 +141,100 @@ uint32_t countBookBorrowed(sUserData_t *sampleUser)
 {
     uint32_t retVal = 0u;
 
-    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    if (NULL != sampleUser)
     {
-        if (NULL != sampleUser->pBookBorrowed[i])
+        for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
         {
-            retVal++;
+            if (NULL != sampleUser->pBookBorrowed[i])
+            {
+                retVal++;
+            }
         }
+    }
+    else
+    {
+        LOG_ERROR("countBookBorrowed() function: sampleUser is NULL");
     }
 
     return retVal;
+}
+
+uint32_t printUsersWithBorrowedBooks(void)
+{
+    sUserData_t *tempUser = pUser;
+    uint32_t printed = 0u;
+
+    if (tempUser == NULL)
+    {
+        LOG_ERROR("There is no user in library.");
+        return 0u;
+    }
+
+    printf("====================================================================================\n");
+    printf("| %-2s | %-25s | %-25s |\n",
+           "ID", "NAME", "BORROWED");
+    printf("------------------------------------------------------------------------------------\n");
+
+    while (NULL != tempUser)
+    {
+        if (countBookBorrowed(tempUser) > 0u)
+        {
+            printf("| %-2d | %-25s | %-25d |\n",
+                   tempUser->id,
+                   tempUser->name,
+                   countBookBorrowed(tempUser));
+            printed++;
+        }
+        tempUser = tempUser->pNextUser;
+    }
+
+    printf("====================================================================================\n");
+
+    if (0u == printed)
+    {
+        LOG_INFO("There is no user who has borrowed books.");
+    }
+
+    return printed;
+}
+
+uint32_t printBooksBorrowedByUser(sUserData_t *sampleUser)
+{
+    uint32_t printed = 0u;
+
+    if (NULL == sampleUser)
+    {
+        LOG_ERROR("printBooksBorrowedByUser, invalid user pointer");
+        return 0u;
+    }
+
+    printf("====================================================================================\n");
+    printf("| %-2s | %-25s | %-25s | %-10s |\n",
+           "ID", "TITLE", "AUTHOR", "STATUS");
+    printf("------------------------------------------------------------------------------------\n");
+
+    for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
+    {
+        sBookData_t *b = sampleUser->pBookBorrowed[i];
+        if (NULL != b)
+        {
+            printf("| %-2d | %-25s | %-25s | %-10s |\n",
+                   b->id,
+                   b->title,
+                   b->author,
+                   (b->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed");
+            printed++;
+        }
+    }
+
+    printf("====================================================================================\n");
+
+    if (0u == printed)
+    {
+        LOG_INFO("This user has not borrowed any book.");
+    }
+
+    return printed;
 }
 
 void delUser()
@@ -362,3 +447,4 @@ bool isUserInSys(sUserData_t sampleUser)
 
     return retVal;
 }
+

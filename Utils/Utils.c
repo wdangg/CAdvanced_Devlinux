@@ -51,7 +51,7 @@ void trimNewline(char *str)
         str[len - 1] = '\0';
 }
 
-void BookMana()
+void bookMana()
 {
     sBookData_t tempBook;
     eBookSelAcc_t eBookSelAcc;
@@ -82,7 +82,7 @@ void BookMana()
     }
 }
 
-void UserMana()
+void userMana()
 {
     sUserData_t tempUser;
     eUserSelAcc_t eUserSelAcc;
@@ -114,27 +114,28 @@ void UserMana()
     }
 }
 
-void PrintBooks()
+void printBooks()
 {
     printfBookInfo(BOOK_STATUS_ALL);
 }
 
-void BorrRetMana()
+void borrRetMana()
 {
     eBorrRetSelAcc_t eBorrRetSelAcc;
 
     printBorrRetlAcc();
 
     eBorrRetSelAcc = borrRetSelAcc();
+    /* LOG_PRINT("eBorrRetSelAcc ================= %d", eBorrRetSelAcc); */
     if (BORR_RET_BORROW == eBorrRetSelAcc)
     {
         /* LOG_PRINT("BORR_RET_BORROW == eBorrRetSelAcc"); */
         borrRetBook(eBorrRetSelAcc);
     }
-    else if (BORR_RET_PIRNT == eBorrRetSelAcc)
+    else if (BORR_RET_RETURN == eBorrRetSelAcc)
     {
-        LOG_PRINT("BORR_RET_PIRNT == eBorrRetSelAcc");
-        
+        /* LOG_PRINT("Return book selecteddddddddddddddddddddddd"); */
+        returnBook();
     }
 }
 

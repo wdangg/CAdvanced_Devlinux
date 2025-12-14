@@ -109,4 +109,16 @@ void initUserForTest();
  */
 bool isUserInSys(sUserData_t sampleUser);
 
+/**
+ * @brief  print only users who have borrowed at least one book
+ * @return number of users printed
+ */
+uint32_t printUsersWithBorrowedBooks(void);
+
+/**
+ * @brief  print books that a specific user has borrowed
+ * @return number of books printed
+ */
+uint32_t printBooksBorrowedByUser(sUserData_t *sampleUser);
+
 #endif /* _USER_H_ */

@@ -17,17 +17,17 @@ int main(void)
         if (LIB_BOOK_INFO_MANA == inputUser)
         {
             /* LOG_PRINT("[LIB_MANA] Library management"); */
-            BookMana();
+            bookMana();
         }
         else if (LIB_USER_MANA == inputUser)
         {
             /* LOG_PRINT("[LIB_MANA] User management"); */
-            UserMana();
+            userMana();
         }
         else if (LIB_BORR_RET_MANA == inputUser)
         {
             /* LOG_PRINT("[LIB_MANA] Borrow - Return books management"); */
-            BorrRetMana();
+            borrRetMana();
         }
         else if (LIB_FIND_BOOK == inputUser)
         {
@@ -37,7 +37,12 @@ int main(void)
         else if (LIB_PRINT_BOOKS == inputUser)
         {
             /* LOG_PRINT("[LIB_MANA] Prinf all books infomation"); */
-            PrintBooks();
+            printBooks();
+        }
+        else if (LIB_PRINT_USERS == inputUser)
+        {
+            LOG_PRINT("[LIB_MANA] Prinf all users infomation");
+            printUserInfo();
         }
         else if (LIB_EXIT == inputUser)
         {

@@ -11,5 +11,6 @@
     fprintf(stderr, "[ERROR] " fmt "\n", ##__VA_ARGS__)
 #define LOG_PRINT(fmt, ...) \
     fprintf(stderr, "[LOG] " fmt "\n", ##__VA_ARGS__)
-
+#define LOG_BREAKPOINT() \
+    fprintf(stderr, "[BREAKPOINT] breakpointttttttttttttttttttttttt %s:%d\n", __FILE__, __LINE__)
 #endif /* _LOG_H_ */
