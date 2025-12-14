@@ -217,7 +217,6 @@ void editBookInfo(sBookData_t *pBook)
     /* -------- Edit Title -------- */
     LOG_PRINT("Enter new title (Enter to skip): ");
     fgets((char *)buff, sizeof(buff), stdin);
-
     buff[strcspn((char *)buff, "\n")] = 0;
 
     bool skipTitle = false;
@@ -341,40 +340,40 @@ void initLibraryForTest(void)
 
     /* BOOK 1 */
     /* sampleBook.id = 1; */
-    strcpy((char *)sampleBook.title, "De Men Phieu Luu Ky");
-    strcpy((char *)sampleBook.author, "To Hoai");
+    strcpy((char *)sampleBook.title, "de men phieu luu ky");
+    strcpy((char *)sampleBook.author, "to hoai");
     /* sampleBook.status = BOOK_STATUS_AVAILABLE;
     sampleBook.pNextBook = NULL; */
     addBook(sampleBook);
 
     /* BOOK 2 */
     /* sampleBook.id = 2; */
-    strcpy((char *)sampleBook.title, "Tat Den");
-    strcpy((char *)sampleBook.author, "Ngo Tat To");
+    strcpy((char *)sampleBook.title, "tat den");
+    strcpy((char *)sampleBook.author, "ngo tat to");
     /* sampleBook.status = BOOK_STATUS_AVAILABLE;
     sampleBook.pNextBook = NULL; */
     addBook(sampleBook);
 
     /* BOOK 3  */
     /* sampleBook.id = 3; */
-    strcpy((char *)sampleBook.title, "Lao Hac");
-    strcpy((char *)sampleBook.author, "Nam Cao");
+    strcpy((char *)sampleBook.title, "lao hac");
+    strcpy((char *)sampleBook.author, "nam cao");
     /* sampleBook.status = BOOK_STATUS_BORROWED;
     sampleBook.pNextBook = NULL; */
     addBook(sampleBook);
 
     /* BOOK 4  */
     /* sampleBook.id = 4; */
-    strcpy((char *)sampleBook.title, "Vo Nhat");
-    strcpy((char *)sampleBook.author, "Kim Lan");
+    strcpy((char *)sampleBook.title, "vo nhat");
+    strcpy((char *)sampleBook.author, "kim lan");
     /* sampleBook.status = BOOK_STATUS_AVAILABLE;
     sampleBook.pNextBook = NULL; */
     addBook(sampleBook);
 
     /*  BOOK 5  */
     /* sampleBook.id = 5; */
-    strcpy((char *)sampleBook.title, "Truyen Kieu");
-    strcpy((char *)sampleBook.author, "Nguyen Du");
+    strcpy((char *)sampleBook.title, "truyen kieu");
+    strcpy((char *)sampleBook.author, "nguyen du");
     /* sampleBook.status = BOOK_STATUS_AVAILABLE;
     sampleBook.pNextBook = NULL; */
     addBook(sampleBook);

@@ -11,12 +11,13 @@ sBookData_t getBookInput(void)
 
     LOG_PRINT("Please text the book's title:");
     fgets((char *)sTitle, sizeof(sTitle), stdin);
-    trimNewline((char *)sTitle);
+
+    ((char *)sTitle)[strcspn((char *)sTitle, "\n")] = '\0';
     strcpy((char *)sRet.title, (char *)sTitle);
     LOG_PRINT("sTile: %s", sTitle);
     LOG_PRINT("Please text the book's author:");
     fgets((char *)sAuthor, sizeof(sAuthor), stdin);
-    trimNewline((char *)sAuthor);
+    ((char *)sAuthor)[strcspn((char *)sAuthor, "\n")] = '\0';
     strcpy((char *)sRet.author, (char *)sAuthor);
     LOG_PRINT("sAuthor: %s", sAuthor);
 
@@ -33,18 +34,11 @@ sUserData_t getUserInput()
 
     LOG_PRINT("Please text the user name:");
     fgets((char *)strName, sizeof(strName), stdin);
-    trimNewline((char *)strName);
+    ((char *)strName)[strcspn((char *)strName, "\n")] = '\0';
     strcpy((char *)sRet.name, (char *)strName);
     LOG_PRINT("strName: %s", strName);
 
     return sRet;
-}
-
-void trimNewline(char *str)
-{
-    size_t len = strlen(str);
-    if (len > 0 && str[len - 1] == '\n')
-        str[len - 1] = '\0';
 }
 
 void bookMana()
@@ -83,7 +77,6 @@ void userMana()
     sUserData_t tempUser;
     eUserSelAcc_t eUserSelAcc;
 
-    
     /* init some users for test */
     /* initUserForTest(); */
     printUserlAcc();
@@ -134,3 +127,56 @@ void borrRetMana()
     }
 }
 
+void findBook()
+{
+    char *line = NULL; 
+    size_t len = 0;
+    ssize_t read;
+
+    printf("Please enter title or author you wanna find: ");
+    read = getline(&line, &len, stdin);
+
+    if ((-1) != read)
+    {
+        /* remove newline character from input */
+        line[strcspn(line, "\n")] = 0;
+
+        sBookData_t *tempBook = getBookAdd();
+        bool found = false;
+
+        printf("====================================================================================\n");
+        printf("| %-2s | %-25s | %-25s | %-10s | %-25s |\n",
+               "ID", "TITLE", "AUTHOR", "STATUS", "BORROWER");
+        printf("------------------------------------------------------------------------------------\n");
+
+        while (NULL != tempBook)
+        {
+            if ((NULL != strstr((char *)tempBook->title, line)) ||
+                (NULL != strstr((char *)tempBook->author, line)))
+            {
+                const char *borrower = (tempBook->userBorrow[0] != 0) ? (char *)tempBook->userBorrow : "-";
+                printf("| %-2d | %-25s | %-25s | %-10s | %-25s |\n",
+                       tempBook->id,
+                       tempBook->title,
+                       tempBook->author,
+                       (tempBook->status == BOOK_STATUS_AVAILABLE) ? "Available" : "Borrowed",
+                       borrower);
+                found = true;
+            }
+            tempBook = tempBook->pNextBook;
+        }
+
+        printf("====================================================================================\n");
+
+        if (false == found)
+        {
+            LOG_INFO("No matching book found for '%s'.", line);
+        }
+    }
+    else
+    {
+        LOG_ERROR("Error reading input");
+    }
+
+    free(line);
+}

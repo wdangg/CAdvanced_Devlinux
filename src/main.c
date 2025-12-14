@@ -32,7 +32,7 @@ int main(void)
         else if (LIB_FIND_BOOK == inputUser)
         {
             /* LOG_PRINT("[LIB_MANA] Find a book"); */
-
+            findBook();
         }
         else if (LIB_PRINT_BOOKS == inputUser)
         {

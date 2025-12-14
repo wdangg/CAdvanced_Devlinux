@@ -15,12 +15,6 @@ void initLibraryForTest();
 sBookData_t getBookInput(void);
 
 /**
- * @brief  Trim trailing newline from string.
- * @param  str  String to trim (in-place).
- */
-void trimNewline(char *str);
-
-/**
  * @brief  Book management menu handler.
  */
 void bookMana();
@@ -39,6 +33,11 @@ void borrRetMana();
  * @brief  Print all books.
  */
 void printBooks();
+
+/**
+ * @brief  Find a book by title or author.
+ */
+void findBook();
 
 /**
  * @brief  Prompt and read user data from stdin.

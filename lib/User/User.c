@@ -423,11 +423,12 @@ void editUserInfo(sUserData_t *sampleUser)
     if (0u == strlen((char*)buff))
     {
         LOG_INFO("No changes were made.");
-        return;
     }
-
-    strcpy((char*)sampleUser->name, (char*)buff);
-    LOG_INFO("User name updated successfully!");
+    else
+    {
+        strcpy((char*)sampleUser->name, (char*)buff);
+        LOG_INFO("User name updated successfully!");
+    }
 }
 
 sUserData_t *getUserAdd()
@@ -450,7 +451,7 @@ void initUserForTest(void)
 
     /* user 1 */
     /* sampleUser.id = 1; */
-    strcpy((char *)(sampleUser.name), "Nguyen Van An");
+    strcpy((char *)(sampleUser.name), "nguyen van an");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
@@ -463,7 +464,7 @@ void initUserForTest(void)
 
     /* user 2 */
     /* sampleUser.id = 2; */
-    strcpy((char *)(sampleUser.name), "Tran Thi Bich");
+    strcpy((char *)(sampleUser.name), "tran thi bich");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
@@ -476,7 +477,7 @@ void initUserForTest(void)
 
     /* user 3 */
     /* sampleUser.id = 3; */
-    strcpy((char *)(sampleUser.name), "Le Van Khang");
+    strcpy((char *)(sampleUser.name), "le van khang");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
