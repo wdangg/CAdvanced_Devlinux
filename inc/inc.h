@@ -39,17 +39,17 @@ static const sMenuList_t sMenuList[] = {
 };
 
 /**
- * @brief  the main func to management the library
+ * @brief  Main library management loop.
  */
 void libManagement(void);
 
 /**
- * @brief  print guide to use application
+ * @brief  Print application info and usage.
  */
 void printAppInfo(void);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Read the main menu selection.
  */
 eLibMana_t getUserChoice(void);
 

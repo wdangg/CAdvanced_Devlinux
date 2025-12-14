@@ -28,32 +28,35 @@ static const sBorrRetSelAcc_t sBorrRetSelAcc[] = {
 };
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Print borrow/return menu.
  */
 void printBorrRetlAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Read borrow/return menu selection.
  */
 eBorrRetSelAcc_t borrRetSelAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Initiate borrow or return workflow.
  */
 void borrRetBook(eBorrRetSelAcc_t eBorrOrRet);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Borrow a book for the selected user.
  */
 void borrBook(sUserData_t **tempUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Return a book for the selected user.
  */
 void returnBook();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Check if user can borrow; returns available slot via index.
+ * @param  tempUser  User to check.
+ * @param  index     Output index of free slot (if true).
+ * @return true if user can borrow, false otherwise.
  */
 bool canBorrBook(sUserData_t *tempUser, uint8_t *index);
 

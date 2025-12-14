@@ -59,72 +59,83 @@ typedef struct Book
 void clearStdinBuff(void);
 
 /**
- * @brief  print book information on console
+ * @brief  Print books filtered by status.
+ * @param  status  Filter to apply (available, borrowed, or all).
  */
 void printfBookInfo(eBookStatus_t status);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Initialize a book structure with defaults.
+ * @param  pBook  Pointer to book structure to initialize.
  */
 void formatBook(sBookData_t *pBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Add a book to the library.
+ * @param  sampleBook  Book data to add (by value).
  */
 void addBook(sBookData_t sampleBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Delete a book by id.
  */
 void delBook();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Modify an existing book.
  */
 void modifyBook();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Edit book fields interactively.
  */
 void editBookInfo(sBookData_t *pBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Read book menu selection.
  */
 eBookSelAcc_t bookSelectAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Print book menu.
  */
 void printBookSelAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Find a book node by id.
+ * @param  id        Book id to find.
+ * @param  tempBook  Output pointer set to found node (if any).
+ * @param  prevBook  Output pointer set to previous node (if any).
+ * @return true if found, false otherwise.
  */
 bool isBookIdInList(const uint32_t id, sBookData_t **tempBook, sBookData_t **prevBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Check if a book title exists in library.
+ * @param  sampleBook  Book to check (title is used for comparison).
+ * @return true if a book with same title exists, false otherwise.
  */
 bool isBookInLib(sBookData_t sampleBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Read an integer id from stdin.
+ * @return entered id (uint32_t).
  */
 uint32_t getIdInput();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Get pointer to library head.
+ * @return pointer to first book in library.
  */
 sBookData_t *getBookAdd();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Free a book node.
  */
 void freeBook(sBookData_t **pBook);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Populate library with sample books for testing.
  */
 void initLibraryForTest(void);
 

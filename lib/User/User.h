@@ -38,83 +38,92 @@ typedef struct sUserInfo
 } sUserData_t;
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Print user menu.
  */
 void printUserlAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Read user menu selection.
  */
 eUserSelAcc_t userSelectAcc();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Print all users and their borrowed books.
  */
 void printUserInfo();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Add a new user.
  */
 void addUser(sUserData_t sampleUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Delete a user by id.
  */
 void delUser();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Modify a user's information.
  */
 void modifyUser();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Initialize a user structure with defaults.
  */
 void formatUser(sUserData_t *sampleUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Count books borrowed by a user.
+ * @param  sampleUser  The user to inspect.
+ * @return number of books borrowed.
  */
 uint32_t countBookBorrowed(sUserData_t *sampleUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Find a user node by id.
+ * @param  id        User id to find.
+ * @param  tempUser  Output pointer set to found node (if any).
+ * @param  prevUser  Output pointer set to previous node (if any).
+ * @return true if found, false otherwise.
  */
 bool isUserIdInList(const uint32_t id, sUserData_t **tempUser, sUserData_t **prevUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Edit user fields interactively.
+ * @param  sampleUser  Pointer to the user to edit.
  */
 void editUserInfo(sUserData_t *sampleUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Get pointer to user list head.
+ * @return pointer to first user in list.
  */
 sUserData_t *getUserAdd();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Free a user node.
+ * @param  sampleUser  Pointer to pointer to user node to free.
  */
 void freeUser(sUserData_t **sampleUser);
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Populate users with sample data for testing.
  */
 void initUserForTest();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Check if a user name exists.
  */
 bool isUserInSys(sUserData_t sampleUser);
 
 /**
- * @brief  print only users who have borrowed at least one book
+ * @brief  Print users who have borrowed books.
  * @return number of users printed
  */
 uint32_t printUsersWithBorrowedBooks(void);
 
 /**
- * @brief  print books that a specific user has borrowed
+ * @brief  Print books borrowed by the specified user.
  * @return number of books printed
  */
 uint32_t printBooksBorrowedByUser(sUserData_t *sampleUser);

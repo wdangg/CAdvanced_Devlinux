@@ -9,51 +9,39 @@
 void initLibraryForTest();
 
 /**
- * @brief  Deletes a book from the list.
- *
- * Returns BOOK_SUCCESS_DELETE on success,
- * BOOK_DELETE_FAILED_NOT_FOUND if the book is missing,
- * or BOOK_DELETE_FAILED_BORROWED if the book is currently borrowed.
- *
- * @param books   Array of all books.
- * @param n       Pointer to the number of books.
- *
- * @return BookRetCode_t  Status code of the delete operation.
+ * @brief  Prompt and read book data from stdin.
+ * @return populated book structure.
  */
 sBookData_t getBookInput(void);
 
 /**
- * @brief  remove the newline char when using fgets
- *
+ * @brief  Trim trailing newline from string.
+ * @param  str  String to trim (in-place).
  */
 void trimNewline(char *str);
 
 /**
- * @brief  remove the newline char when using fgets
- *
+ * @brief  Book management menu handler.
  */
 void bookMana();
 
 /**
- * @brief  remove the newline char when using fgets
- *
+ * @brief  User management menu handler.
  */
 void userMana();
 
 /**
- * @brief  remove the newline char when using fgets
- *
+ * @brief  Borrow/return menu handler.
  */
 void borrRetMana();
 
 /**
- * @brief  remove the newline char when using fgets
- *
+ * @brief  Print all books.
  */
 void printBooks();
 
 /**
- * @brief  get user choice from keyboard
+ * @brief  Prompt and read user data from stdin.
  */
 sUserData_t getUserInput();
 
