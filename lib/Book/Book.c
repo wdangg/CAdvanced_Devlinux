@@ -68,7 +68,6 @@ void addBook(sBookData_t sampleBook)
 {
     sBookData_t *tempBook;
     sBookData_t *curBookTail;
-    uint8_t temp;
     bool isBookExist = false;
 
     isBookExist = isBookInLib(sampleBook);
@@ -114,9 +113,7 @@ void delBook()
 {
     sBookData_t *tempBook = NULL;
     sBookData_t *prevBook = NULL;
-    bool found = false;
     uint32_t id;
-    bool bookAvailabe = false;
 
     if (NULL == pLibrary)
     {
@@ -193,7 +190,7 @@ bool isBookInLib(sBookData_t sampleBook)
     {
         while (NULL != tempBook)
         {
-            if (0u == strcmp(sampleBook.title, tempBook->title))
+            if (0u == strcmp((char *)sampleBook.title, (char *)tempBook->title))
             {
                 retVal = true;
                 /* set tempBook to exit while loop, dont use break */

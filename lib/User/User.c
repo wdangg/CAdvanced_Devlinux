@@ -105,7 +105,6 @@ void addUser(sUserData_t sampleUser)
 {
     sUserData_t *tempUser;
     sUserData_t *curUserTail = pUser;
-    sUserData_t *checker = pUser;
 
     bool isExist = false;
 
@@ -168,7 +167,7 @@ void formatUser(sUserData_t *pSample)
         {
             pSample->name[temp] = 0;
         }
-        memset(pSample->pBookBorrowed, NULL, sizeof(pSample->pBookBorrowed));
+        memset(pSample->pBookBorrowed, 0, sizeof(pSample->pBookBorrowed));
     }
 }
 
@@ -307,7 +306,6 @@ void delUser()
 {
     sUserData_t *tempUser;
     sUserData_t *prevUser = NULL;
-    bool found = false;
     uint32_t id;
     uint8_t delBuff[USER_NAME_SIZE];
 
@@ -452,7 +450,7 @@ void initUserForTest(void)
 
     /* user 1 */
     /* sampleUser.id = 1; */
-    strcpy(sampleUser.name, "Nguyen Van An");
+    strcpy((char *)(sampleUser.name), "Nguyen Van An");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
@@ -465,7 +463,7 @@ void initUserForTest(void)
 
     /* user 2 */
     /* sampleUser.id = 2; */
-    strcpy(sampleUser.name, "Tran Thi Bich");
+    strcpy((char *)(sampleUser.name), "Tran Thi Bich");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
@@ -478,7 +476,7 @@ void initUserForTest(void)
 
     /* user 3 */
     /* sampleUser.id = 3; */
-    strcpy(sampleUser.name, "Le Van Cuong");
+    strcpy((char *)(sampleUser.name), "Le Van Khang");
 
     for (uint8_t i = 0; i < USER_MAX_BOOK_CAN_BORROW; i++)
     {
@@ -498,7 +496,7 @@ bool isUserInSys(sUserData_t sampleUser)
     {
         while (NULL != tempUser)
         {
-            if (0u == strcmp(sampleUser.name, tempUser->name))
+            if (0u == strcmp((char *)(sampleUser.name), (char *)(tempUser->name)))
             {
                 retVal = true;
                 /* set tempUser to exit while loop, dont use break */

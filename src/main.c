@@ -81,7 +81,7 @@ eLibMana_t getUserChoice(void)
 void printAppInfo(void)
 {
     printf("----------------------------------------------------------------\n");
-    for (int i = 0; i < sizeof(sMenuList)/sizeof(sMenuList[0]); i++)
+    for (size_t i = 0; i < sizeof(sMenuList)/sizeof(sMenuList[0]); i++)
     {
         printf("\t%d. %s\n", sMenuList[i].id, sMenuList[i].msg);
     }

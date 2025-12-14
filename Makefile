@@ -19,6 +19,8 @@ LINK_OUT_DIR = $(OUTPUT_DIR)/04_linker
 
 # output file name
 TARGET = out
+BINARY = out.exe
+MAPFILE = out.map
 # compiler
 CC = gcc
 
@@ -32,17 +34,17 @@ SRC_DIRS += $(PROJECT_DIR)/Utils
 # source file
 SRC_FILES = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
+CFLAGS = -std=c11 -O2 -g -Wall -Wextra $(foreach dir,$(INC_DIRS),-I$(dir))
+LDFLAGS = -Wl,-Map=$(PROJECT_DIR)/$(MAPFILE)
+
 # include directory
 INC_DIRS = $(PROJECT_DIR)/inc
 INC_DIRS += $(PROJECT_DIR)/lib
 INC_DIRS += $(PROJECT_DIR)/lib/Book
 INC_DIRS += $(PROJECT_DIR)/lib/Borrow
 INC_DIRS += $(PROJECT_DIR)/lib/Common
-INC_DIRS += $(PROJECT_DIR)/lib/USer
+INC_DIRS += $(PROJECT_DIR)/lib/User
 INC_DIRS += $(PROJECT_DIR)/Utils
-
-# compiler flags
-CFLAGS = -Wall -Wextra -O2 $(foreach dir,$(INC_DIRS),-I$(dir)) -Wl,-Map=$(TARGET).map
 
 print-%:
 	@echo "$* = $($*)"
@@ -82,13 +84,18 @@ $(ASS_OUT_DIR)/%.o: %.s
 
 linker:
 	@mkdir -p $(LINK_OUT_DIR)
-	@$(CC) $(ASS_O_FILES) -o $(LINK_OUT_DIR)/$(TARGET) -Wl,-Map=$(LINK_OUT_DIR)/$(TARGET).map
+	@$(CC) $(ASS_O_FILES) $(CFLAGS) $(LDFLAGS) -o $(PROJECT_DIR)/$(BINARY)
+
+# single-step build (compile all .c files at once) producing out.exe and out.map in repo root
+build-single:
+	@echo "[BUILD_SINGLE] Compiling sources into $(BINARY)"
+	@$(CC) $(CFLAGS) $(SRC_FILES) -o $(PROJECT_DIR)/$(BINARY) $(LDFLAGS)
 
 build: preprocessor compiler assembler linker
 	@echo -e "$(GREEN)[MAKE_INFO] Build completed successfully!$(RESET)"
 
 run:
-	@./$(LINK_OUT_DIR)/$(TARGET).exe
+	@./$(PROJECT_DIR)/$(BINARY)
 
 all: clear build run
 

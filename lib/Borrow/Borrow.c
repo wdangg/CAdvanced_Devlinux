@@ -92,7 +92,6 @@ void borrBook(sUserData_t **tempUser)
     sBookData_t *prevBook = NULL;
     uint32_t id;
     uint8_t index;
-    bool canBorrow = false;
 
     if (NULL != *tempUser)
     {
@@ -105,7 +104,7 @@ void borrBook(sUserData_t **tempUser)
             {
                 printUserInfo();
                 tempBook->status = BOOK_STATUS_BORROWED;
-                strcpy((tempBook->userBorrow), ((*tempUser)->name));
+                strcpy((char *)(tempBook->userBorrow), (char *)((*tempUser)->name));
                 (*tempUser)->pBookBorrowed[index] = tempBook;
                 /* LOG_INFO("break point"); */
                 printUserInfo();

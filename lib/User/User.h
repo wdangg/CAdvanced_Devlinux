@@ -24,8 +24,8 @@ typedef struct sUser
 
 static const sUserSelAcc_t sUserSelAcc[] = {
     {USER_ADD,          "Add an user"},
-    {BOOK_DEL,          "Delete an user"},
-    {BOOK_MODIFY_INFO,  "Modify user infomation"},
+    {USER_DEL,          "Delete an user"},
+    {USER_MODIFY,       "Modify user infomation"},
 };
 
 typedef struct sUserInfo

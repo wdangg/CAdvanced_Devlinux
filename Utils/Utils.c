@@ -3,8 +3,6 @@
 sBookData_t getBookInput(void)
 {
     sBookData_t sRet;
-    uint32_t id;
-    uint8_t temp;
     uint8_t sTitle[TITLE_SIZE];
     uint8_t sAuthor[AUTHOR_SIZE];
 
@@ -12,14 +10,14 @@ sBookData_t getBookInput(void)
     formatBook(&sRet);
 
     LOG_PRINT("Please text the book's title:");
-    fgets(sTitle, sizeof(sTitle), stdin);
-    trimNewline(sTitle);
-    strcpy(sRet.title, sTitle);
+    fgets((char *)sTitle, sizeof(sTitle), stdin);
+    trimNewline((char *)sTitle);
+    strcpy((char *)sRet.title, (char *)sTitle);
     LOG_PRINT("sTile: %s", sTitle);
     LOG_PRINT("Please text the book's author:");
-    fgets(sAuthor, sizeof(sAuthor), stdin);
-    trimNewline(sAuthor);
-    strcpy(sRet.author, sAuthor);
+    fgets((char *)sAuthor, sizeof(sAuthor), stdin);
+    trimNewline((char *)sAuthor);
+    strcpy((char *)sRet.author, (char *)sAuthor);
     LOG_PRINT("sAuthor: %s", sAuthor);
 
     return sRet;
@@ -28,17 +26,15 @@ sBookData_t getBookInput(void)
 sUserData_t getUserInput()
 {
     sUserData_t sRet;
-    uint32_t id;
-    uint8_t temp;
     uint8_t strName[USER_NAME_SIZE];
 
     /* format the user before write data */
     formatUser(&sRet);
 
     LOG_PRINT("Please text the user name:");
-    fgets(strName, sizeof(strName), stdin);
-    trimNewline(strName);
-    strcpy(sRet.name, strName);
+    fgets((char *)strName, sizeof(strName), stdin);
+    trimNewline((char *)strName);
+    strcpy((char *)sRet.name, (char *)strName);
     LOG_PRINT("strName: %s", strName);
 
     return sRet;
