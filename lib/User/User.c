@@ -160,7 +160,6 @@ void delUser()
     uint32_t id;
     uint8_t delBuff[USER_NAME_SIZE];
 
-
     if (pUser == NULL)
     {
         LOG_ERROR("There is no book to delete");

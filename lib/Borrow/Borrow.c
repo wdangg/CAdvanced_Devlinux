@@ -103,9 +103,12 @@ void borrBook(sUserData_t **tempUser)
             id = getIdInput();
             if (true == isBookIdInList(id, &tempBook, &prevBook))
             {
+                printUserInfo();
                 tempBook->status = BOOK_STATUS_BORROWED;
-                strcpy((*tempUser)->name, tempBook->userBorrow);
+                strcpy(((*tempUser)->name), (tempBook->userBorrow));
                 (*tempUser)->pBookBorrowed[index] = tempBook;
+                LOG_INFO("break pointttttttttttttttttttt");
+                printUserInfo();
             }
         }
     }

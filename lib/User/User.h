@@ -4,7 +4,6 @@
 #include "Book.h"
 #include "Log.h"
 
-#define USER_NAME_SIZE 30u
 #define USER_MAX_BOOK_CAN_BORROW 2u
 
 #define USER_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : USER_INVALID_ACC)

@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#define USER_NAME_SIZE 50u
+
 uint32_t getIdInput(void);
 
 

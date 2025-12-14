@@ -7,10 +7,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include "Log.h"
+#include "Common.h"
 
 #define TITLE_SIZE 50
 #define AUTHOR_SIZE 50
-#define NAME_SIZE 50
 #define BOOK_SIZE 4
 
 #define BOOK_CHAR_TO_NUM(x) (((x) >= '0' && (x) <= '9') ? ((x) - '0') : BOOK_INVALID_SEL)
@@ -49,7 +49,7 @@ typedef struct Book
     uint8_t title[TITLE_SIZE];
     uint8_t author[AUTHOR_SIZE];
     eBookStatus_t status;
-    uint8_t userBorrow[NAME_SIZE];
+    uint8_t userBorrow[USER_NAME_SIZE];
     struct Book *pNextBook;
 } sBookData_t;
 
