@@ -50,7 +50,6 @@ int main(void)
         }
     } while (LIB_EXIT != inputUser);
 
-    /* LOG_INFO("App layer"); */
     LOG_INFO("Done");
 }
 
