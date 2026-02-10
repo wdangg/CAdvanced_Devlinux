@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/spws_app/inc",
+        "${workspaceFolder}/core/inc",
+        "${workspaceFolder}/driver/inc"
+      ],
+      "compilerPath": "/usr/bin/gcc",
+      "intelliSenseMode": "gcc-x64",
+      "cStandard": "c11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

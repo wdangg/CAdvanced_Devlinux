@@ -1,0 +1,6 @@
+# ignore all output file
+*.exe
+*.s
+*.i
+*.o
+*.map
